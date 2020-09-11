@@ -8,28 +8,30 @@ For this project, I will be building a task management application. The purpose 
 
 ## User Stories
 
-- Users see a grid of videos on homepage
-- Users can click on one video to watch it on the video player
-- Users can create their own accounts
-- Users can log in and comment on each video
-- Users can edit comments or delete them
-- Users can navigate using the navigation bar
-- Users can like and dislike videos
+- Users can register for an account
+- Users can log into their account
+- Users can create a task
+- Users can edit tasks
+- Users can also cross off tasks
+- Users can delete tasks
+- Tasks will be ordered by date
 
 ## Project Schedule
 
 |  Day | Deliverable | Status
 |---|---| ---|
-|Saturday, August 22nd (Day 1)| Project Description / Wireframes / Priority Matrix / Timeline `backend` & `frontend` | Complete
-|Sunday, August 23nd (Day 2)| Building out the `frontend` frame | Complete
-|Monday, August 24th (Day 3)| Working on `backend`| Complete
-|Tuesday, August 25th (Day 4)| Finishing up `backend` & fetching to `frontend` | Complete
-|Wednesday, August 26th (Day 5)| Fixing breakcases | Complete
-|Thursday, August 27th (Day 6)| Bug Fixes & Deployment | Complete
-|Friday, August 28th (Day 7)| Post-MVP & CSS in the `frontend`| Complete
-|Saturday, August 29th (Day 8)| Seeding videos in our database & more CSS| Complete
-|Sunday, August 30th (Day 9)| Finish Documentation | Complete
-|Monday, August 31st (Day 10)| Presentations | Complete
+|Friday, September 11th (Day 1)| Project Description / Wireframes / Priority Matrix / Timeline `backend` & `frontend`/ Deployment | Complete
+|Saturday, September 12th (Day 2)| Working on custom authentication | Incomplete
+|Sunday, September 13th (Day 3)| Working on building out models | Incomplete
+|Monday, September 14th (Day 4)| Finishing up `backend` | Incomplete
+|Tuesday, September 15th (Day 5)| Start fetching data into the `frontend` | Incomplete
+|Wednesday, September 16th (Day 6)| Continue working fetching data into the `frontend` | Incomplete
+|Thursday, September 17th (Day 7)| Fixing breakcases| Incomplete
+|Friday, September 18th (Day 8)| Post-MVP & CSS in the `frontend` | Incomplete
+|Saturday, September 19th (Day 9)| Fixing Bugs | Incomplete
+|Sunday, September 20th (Day 10)| Fixing Bugs | Incomplete
+|Monday, September 21st (Day 11)| Finish Documentation | Incomplete
+|Tuesday, September 22nd (Day 12)| Presentations | Incomplete
 
 ## Wireframes
 
