@@ -2,9 +2,9 @@
 
 ## Project Description
 
-For Project Three of the General Assembly SEI course, we were assigned to create a website that shows our knowledge and understanding of CRUD and RESTful APIs. We have to create the backend using Ruby on Rails. We create our frontend using HTML, CSS, JavaScript and Vue. We deployed our backend and frontend to Heroku and Netlify, respectively.
+For Project Four of the General Assembly SEI course, I was assigned to create a mobile first web application that shows my knowledge and understanding of CRUD and RESTful APIs. The requirements for this project consisted of using Python and Django in the backend, and using HTML, CSS, and Django in the frontend. The backend is deployed via Heroku, while the frontend is deployed via Netlify.
 
-For this project, we will be building a video hosting website (using Youtube API) and host videos pertaining specifically to web developers. The website's purpose is to allow users to watch different web development videos. All users can browse through the homepage to select videos they want to watch. Users can also register an account for our website. Registered users have the abilities to comment on videos and use the like and dislike feature, unlike unregistered users.
+For this project, I will be building a task management application. The purpose of this task management application is to allow users to efficiently organize their everyday life, and making sure they keep up to date with any tasks they are want or need to accomplish. Users must sign up for an account and only then will they be able to create, read, update, and delete tasks of their choosing.
 
 ## User Stories
 
