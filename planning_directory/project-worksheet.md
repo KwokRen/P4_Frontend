@@ -35,54 +35,51 @@ For this project, I will be building a task management application. The purpose 
 
 ## Wireframes
 
-- [Mobile](https://res.cloudinary.com/dpggcudix/image/upload/v1598051059/Screen_Shot_2020-08-21_at_7.03.51_PM_y3anyn.png)
-- [Desktop](https://res.cloudinary.com/dpggcudix/image/upload/v1598051059/Screen_Shot_2020-08-21_at_7.03.36_PM_mjwsgq.png)
+- [Mobile]
+- [Desktop]
 
 
 ## Time / Priority Matrix 
 
-- [Time / Priority Matrix](https://res.cloudinary.com/dpggcudix/image/upload/v1598048081/Screen_Shot_2020-08-21_at_6.14.31_PM_tdxcxn.png)
+- [Time / Priority Matrix]
 
 ## MVP / PostMVP
 
 #### MVP 
 
-:heavy_check_mark: Login with Username and Password <br>
-:heavy_check_mark: Mobile responsiveness first <br>
-:heavy_check_mark: User Dashboard / Homepage <br>
-:heavy_check_mark: Deploy frontend <br>
-:heavy_check_mark: Hamburger menu  <br>
-:heavy_check_mark: Navigation bar (Fixed) <br>
-:heavy_check_mark: Video thumbnails displayed on homepage <br>
-:heavy_check_mark: Navigating to video when clicked <br>
-:heavy_check_mark: Ability to comment (CRUD) <br>
-:heavy_check_mark: Abilty to like and dislike <br>
-:heavy_check_mark: Meet the team page <br>
-:heavy_check_mark: Landing page <br>
+:white_circle: Registration Feature <br>
+:white_circle: Login via Username and Password <br>
+:white_circle: Task Homepage <br>
+:white_check_mark: Deployment <br>
+:white_circle: Hamburger menu  <br>
+:white_circle: Navigation bar (Fixed) <br>
+:white_circle: Mobile First <br>
+:white_circle: Creating Tasks <br>
+:white_circle: Updating Tasks <br>
+:white_circle: Deleting Tasks <br>
+:white_circle: Landing page <br>
 
 #### PostMVP 
 
-:heavy_check_mark: CSS Animations <br>
-:construction: Search Bar <br>
-:construction: More User Customization <br>
-:construction: Dark Mode <br>
-:heavy_check_mark: Refactoring <br>
-:heavy_check_mark: Fixing up bugs <br>
+:white_circle: Search Bar <br>
+:white_circle: Archived Section <br>
+:white_circle: Different Themes <br>
+:white_circle: Refactoring <br>
+:white_circle: Fixing up bugs <br>
 
 ## Functional Components
 
 ### MVP
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Authentication | H | 1hr | 2hr | 2hr|
-| User Dashboard / Homepage | H | 3hr | 2hr | 2hr|
-| Deploying Frontend | L | 0hr | 0hr | 0hr|
-| Mobile Responsiveness | H | 3hr| 6hr | 6hr |
-| Hamburger Menu | M | 1hr | 3hr | 3hr|
-| Fixed Navigation Bar | H | 1hrs| 0hr | 0hr |
-| Video Thumbnails | H | 3hr | 2hr | 2hr |
-| Navigating to seperate page | H | 3hr | 0hr | 0hr |
-| Total | H | 15hrs| 15hrs | 15hrs |
+| Authentication | H | 2hrs | hr | hr|
+| User Dashboard / Homepage | H | 3hrs | hr | hr|
+| Deploying Frontend | L | 0hr | hr | hr|
+| Mobile Responsiveness | H | 3hrs | hr | hr |
+| Hamburger Menu | M | 1hr | hr | hr|
+| Fixed Navigation Bar | H | 1hr | hr | hr |
+| CRUD Tasks | H | 10hrs | hr | hr |
+| Total | H | 20hrs| hrs | hrs |
 
 ### PostMVP
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
