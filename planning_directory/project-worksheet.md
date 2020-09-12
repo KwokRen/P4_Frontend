@@ -41,7 +41,7 @@ For this project, I will be building a task management application. The purpose 
 
 ## Time / Priority Matrix 
 
-- [Time / Priority Matrix]
+[Time / Priority Matrix](https://res.cloudinary.com/dpggcudix/image/upload/v1599916688/Screen_Shot_2020-09-12_at_9.17.49_AM_xaavgs.png)
 
 ## MVP / PostMVP
 
@@ -54,9 +54,9 @@ For this project, I will be building a task management application. The purpose 
 :white_circle: Hamburger menu  <br>
 :white_circle: Navigation bar (Fixed) <br>
 :white_circle: Mobile First <br>
-:white_circle: Creating Tasks <br>
-:white_circle: Updating Tasks <br>
-:white_circle: Deleting Tasks <br>
+:white_circle: Creating Tasks/Lists <br>
+:white_circle: Updating Tasks/Lists <br>
+:white_circle: Deleting Tasks/Lists <br>
 :white_circle: Landing page <br>
 
 #### PostMVP 
