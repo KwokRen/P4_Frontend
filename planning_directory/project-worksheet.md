@@ -35,7 +35,7 @@ For this project, I will be building a task management application. The purpose 
 
 ## Wireframes
 
-[Mobile](https://res.cloudinary.com/dpggcudix/image/upload/v1599924395/Screen_Shot_2020-09-12_at_11.25.32_AM_k8bnis.png)
+[Mobile](https://res.cloudinary.com/dpggcudix/image/upload/v1599924395/Screen_Shot_2020-09-12_at_11.25.32_AM_k8bnis.png) <br>
 [Desktop](https://res.cloudinary.com/dpggcudix/image/upload/v1599924395/Screen_Shot_2020-09-12_at_11.25.48_AM_gyomgs.png)
 
 
