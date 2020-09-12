@@ -95,7 +95,6 @@ For this project, I will be building a task management application. The purpose 
  - [Bootstrap](https://getbootstrap.com/)
  - [FontAwesome](https://fontawesome.com/)
  - [Vue](https://vuejs.org/)
- - [VueTailwind](https://www.vue-tailwind.com/)
 
 ## Code Snippet
 
