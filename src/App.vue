@@ -31,7 +31,10 @@ export default {
     login: function(event){
       this.loggedIn = true,
       this.token = event.token
-      this.$router.push('/')
+      this.$router.push({ 
+         path: 'Task',
+        query: { tokens: this.token, URL: this.URL }
+      });
     },
     logout: function(){
       this.loggedIn = false,

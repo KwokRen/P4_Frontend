@@ -15,7 +15,8 @@ Vue.use(VueRouter)
   {
     path: '/Task',
     name: 'Task',
-    component: Task
+    component: Task,
+    props: true
   },
   {
     path: '/login',

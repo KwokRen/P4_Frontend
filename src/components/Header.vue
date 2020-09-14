@@ -11,7 +11,7 @@
           <router-link to="/">Home</router-link>
         </b-navbar-item>
         <b-navbar-item href="#">
-          <router-link to="/Page2">About</router-link>
+          <router-link to="/Task">About</router-link>
         </b-navbar-item>
       </template>
 
@@ -21,7 +21,7 @@
             <a class="button is-primary" v-if="!loggedIn">
               <strong>Sign up</strong>
             </a>
-            <router-link to="/Login" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light">Login</a></router-link>
+            <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light">Login</a></router-link>
             <router-link to="#" v-if="loggedIn" v-bind:URL="URL"><a class="button is-light" v-on:click="logout">Logout</a></router-link>
           </div>
         </b-navbar-item>

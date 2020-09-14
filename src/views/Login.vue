@@ -27,7 +27,7 @@ export default {
     methods: {
         handleLogin: function(){
             if (this.username && this.password){
-                fetch(`http://localhost:8000/auth/users/login/`, {
+                fetch(`${this.$route.query.URL}/auth/users/login/`, {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json",
@@ -39,6 +39,7 @@ export default {
                 })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     if (data.non_field_errors){
                         alert("Invalid credentials.")
                     } else {
