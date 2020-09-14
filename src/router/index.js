@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Task from '../views/Task.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,12 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'Login',
     component: Login,
+    props: true
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
     props: true
   }
 ]

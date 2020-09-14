@@ -33,7 +33,7 @@ export default {
       this.token = event.token
       this.$router.push({ 
          path: 'Task',
-        query: { tokens: this.token, URL: this.URL }
+        query: { token: this.token, URL: this.URL }
       });
     },
     logout: function(){
