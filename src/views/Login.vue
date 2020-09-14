@@ -26,21 +26,29 @@ export default {
     },
     methods: {
         handleLogin: function(){
-            fetch(`http://localhost:8000/auth/users/login/`, {
-                method: "post",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: this.username,
-                    password: this.password
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                this.$emit('loggedIn', data)
-            });
+            if (this.username && this.password){
+                fetch(`http://localhost:8000/auth/users/login/`, {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: this.username,
+                        password: this.password
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.non_field_errors[0] === 'A username with that username or password is not found'){
+                        alert("Invalid credentials.")
+                    } else {
+                        console.log(data.non_field_errors[0])
+                        this.$emit('loggedIn', data)
+                    }
+                });
+            } else {
+                alert("Invalid credentials.")
+            }
         }
     }
 }

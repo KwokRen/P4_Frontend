@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <Header v-bind:URL="URL" @loggedIn="loggedIn" @logout="logout"/>
+      <Header v-bind:URL="URL" v-bind:loggedIn="loggedIn" @logout="logout"/>
 
       
     </div>

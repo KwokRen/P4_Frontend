@@ -30,7 +30,7 @@
               <strong>Sign up</strong>
             </a>
             <router-link to="/Login" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light">Login</a></router-link>
-            <router-link to="#" v-if="loggedIn" v-bind:URL="URL"><a class="button is-light">Logout</a></router-link>
+            <router-link to="#" v-if="loggedIn" v-bind:URL="URL"><a class="button is-light" v-on:click="logout">Logout</a></router-link>
           </div>
         </b-navbar-item>
       </template>
@@ -42,11 +42,12 @@
 export default {
   name: "Header",
   props: ["URL", "loggedIn"],
-  // methods: {
-  //   logout: function(){
-  //     this.$emit('logout')
-  //   }
-  // }
+  methods: {
+    logout: function(){
+      this.$emit('logout')
+      console.log('hello again')
+    }
+  }
 };
 </script>
 
