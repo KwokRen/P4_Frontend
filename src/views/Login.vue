@@ -1,11 +1,17 @@
 <template>
     <div class=login>
-        <div class="login-container">
-            <input class="input is-primary" type="text" placeholder="Email" v-model="email">
+        <!-- <div class="login-container">
             <input class="input is-primary" type="text" placeholder="Username" v-model="username">
             <input class="input is-primary" type="password" placeholder="Password" v-model="password">
-            <button class="button is-light">Log In</button>
-        </div>
+            <button class="button is-light" @click="handleLogin">Log In</button>
+        </div> -->
+        <b-field>
+            <b-input placeholder="Username" v-model="username"></b-input>
+        </b-field>
+        <b-field>
+            <b-input type="password" placeholder="Password" v-model="password" password-reveal></b-input>
+        </b-field>
+        <button class="button is-light" @click="handleLogin">Log In</button>
     </div>
 </template>
 
@@ -15,13 +21,26 @@ export default {
     data: function (){
         return {
             username: '',
-            password: '',
-            email: '',
+            password: ''
         }
     },
     methods: {
         handleLogin: function(){
-            fetch(`${URL}/auth/users/login`)
+            fetch(`http://localhost:8000/auth/users/login/`, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: this.username,
+                    password: this.password
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                this.$emit('loggedIn', data)
+            });
         }
     }
 }
@@ -31,6 +50,7 @@ export default {
 
     .login {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 25px;

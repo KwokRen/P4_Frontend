@@ -40,6 +40,7 @@
 <script>
 export default {
   name: "Header",
+  props: ["loggedIn", "URL"]
 };
 </script>
 
