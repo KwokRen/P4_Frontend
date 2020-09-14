@@ -1,10 +1,5 @@
 <template>
     <div class=login>
-        <!-- <div class="login-container">
-            <input class="input is-primary" type="text" placeholder="Username" v-model="username">
-            <input class="input is-primary" type="password" placeholder="Password" v-model="password">
-            <button class="button is-light" @click="handleLogin">Log In</button>
-        </div> -->
         <b-field>
             <b-input placeholder="Username" v-model="username"></b-input>
         </b-field>

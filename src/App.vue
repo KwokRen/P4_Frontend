@@ -5,7 +5,7 @@
 
       
     </div>
-    <router-view @loggedIn="login($event)"/>
+    <router-view @loggedIn="login($event)" @register="register($event)"/>
     <Footer/>
   </div>
 </template>
@@ -39,6 +39,14 @@ export default {
     logout: function(){
       this.loggedIn = false,
       this.token = {}
+    },
+    register: function(event){
+      this.loggedIn = true,
+      this.token = event.token
+      this.$router.push({ 
+         path: 'Task',
+        query: { token: this.token, URL: this.URL }
+      });
     }
   }
 }
@@ -76,5 +84,8 @@ export default {
   color: #42b983;
 }
 
+.buttons > a {
+  width: 100px;
+}
 
 </style>

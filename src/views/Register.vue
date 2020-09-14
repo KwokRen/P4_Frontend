@@ -1,17 +1,15 @@
 <template>
     <div class=login>
-        <!-- <div class="login-container">
-            <input class="input is-primary" type="text" placeholder="Username" v-model="username">
-            <input class="input is-primary" type="password" placeholder="Password" v-model="password">
-            <button class="button is-light" @click="handleLogin">Log In</button>
-        </div> -->
+         <b-field>
+            <b-input placeholder="Email" v-model="email"></b-input>
+        </b-field>
         <b-field>
             <b-input placeholder="Username" v-model="username"></b-input>
         </b-field>
         <b-field>
             <b-input type="password" placeholder="Password" v-model="password" password-reveal></b-input>
         </b-field>
-        <button class="button is-light" @click="handleLogin">Log In</button>
+        <button class="button is-light" @click="handleRegister">Register</button>
     </div>
 </template>
 
@@ -21,33 +19,35 @@ export default {
     data: function (){
         return {
             username: '',
-            password: ''
+            password: '',
+            email: ''
         }
     },
     methods: {
-        handleLogin: function(){
-            if (this.username && this.password){
-                fetch(`${this.$route.query.URL}/auth/users/login/`, {
+        handleRegister: function(){
+            if (this.username && this.password && this.email){
+                fetch(`${this.$route.query.URL}/auth/users/register/`, {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         username: this.username,
-                        password: this.password
+                        password: this.password,
+                        email: this.email
                     }),
                 })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    if (data.non_field_errors){
-                        alert("Invalid credentials.")
+                    if (Array.isArray(data.email) || Array.isArray(data.username) || Array.isArray(data.password)){
+                        alert("Creation unsuccessful. Please try again.")
                     } else {
-                        this.$emit('loggedIn', data)
+                        this.$emit('register', data)
                     }
                 });
             } else {
-                alert("Invalid credentials.")
+                alert("All fields must be valid.")
             }
         }
     }
