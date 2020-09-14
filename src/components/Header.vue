@@ -13,20 +13,12 @@
         <b-navbar-item href="#">
           <router-link to="/Page2">About</router-link>
         </b-navbar-item>
-        <b-navbar-dropdown label="Info">
-          <b-navbar-item href="#">
-            About
-          </b-navbar-item>
-          <b-navbar-item href="#">
-            Contact
-          </b-navbar-item>
-        </b-navbar-dropdown>
       </template>
 
       <template slot="end">
         <b-navbar-item tag="div">
           <div class="buttons">
-            <a class="button is-primary">
+            <a class="button is-primary" v-if="!loggedIn">
               <strong>Sign up</strong>
             </a>
             <router-link to="/Login" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light">Login</a></router-link>

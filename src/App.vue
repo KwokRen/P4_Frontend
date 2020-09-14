@@ -43,6 +43,8 @@ export default {
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -53,11 +55,13 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Lato', sans-serif;
 }
 
 #nav {
   padding: 30px;
   width: 100vw;
+  font-family: 'Roboto', sans-serif;
 }
 
 #nav a {

@@ -39,10 +39,9 @@ export default {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.non_field_errors[0] === 'A username with that username or password is not found'){
+                    if (data.non_field_errors){
                         alert("Invalid credentials.")
                     } else {
-                        console.log(data.non_field_errors[0])
                         this.$emit('loggedIn', data)
                     }
                 });
