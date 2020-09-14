@@ -91,9 +91,9 @@ For this project, I will be building a task management application. The purpose 
 
 ## Additional Libraries
 
- - [Bootstrap](https://getbootstrap.com/)
  - [FontAwesome](https://fontawesome.com/)
  - [Vue](https://vuejs.org/)
+ - [Buefy](https://buefy.org/)
 
 ## Code Snippet
 
