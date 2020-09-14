@@ -64,13 +64,14 @@ export default {
   color: #2c3e50;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-family: 'Lato', sans-serif;
+  width: 100vw;
+  height: 100vh;
 }
 
 #nav {
-  padding: 30px;
   width: 100vw;
   font-family: 'Roboto', sans-serif;
 }
