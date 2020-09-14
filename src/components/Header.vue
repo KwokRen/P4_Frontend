@@ -33,7 +33,7 @@
               <strong>Sign up</strong>
             </a>
             <a class="button is-light">
-              Log in
+              <router-link to="/Login">Login</router-link>
             </a>
           </div>
         </b-navbar-item>
