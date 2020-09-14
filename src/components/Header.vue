@@ -29,7 +29,7 @@
             <a class="button is-primary">
               <strong>Sign up</strong>
             </a>
-            <router-link to="/Login"><a class="button is-light">Login</a></router-link>
+            <router-link to="/Login"><a class="button is-light" v-bind:URL="URL">Login</a></router-link>
           </div>
         </b-navbar-item>
       </template>
