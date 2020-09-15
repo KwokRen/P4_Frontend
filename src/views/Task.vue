@@ -2,33 +2,33 @@
   <div class="task-container">
     <div class="task-ui">
       <div class="task-list">
-        <div class="task" v-for="task of tasks" v-bind:key="task.id" @click="openModal = openModal == task.id ? 0 : task.id; isCardModalActive = true">
+        <div class="task" v-for="task of tasks" v-bind:key="task.id" @click="isCardModalActive = true; openModal = openModal == task.id ? 0 : task.id">
           <div class="radio-button" v-bind:id="task.id">
               <b-checkbox v-bind:id="task.id" :value="false"
               type="is-success">
               </b-checkbox>
           </div>
           {{task.name}}
-          <b-modal v-if="openModal == task.id" v-model="isCardModalActive" v-bind:id="task.id" :width="640" scroll="keep">
-            <div class="card" id="card">
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-content">
-                            <p class="title is-4">John Smith</p>
-                            <p class="subtitle is-6">@johnsmith</p>
-                        </div>
-                    </div>
-
-                    <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                        <a>#css</a> <a>{{task.name}}</a>
-                        <br>
-                        <small>11:09 PM - 1 Jan 2016</small>
-                    </div>
+          <b-modal v-bind:id="task.id" v-if="openModal == task.id" v-model="isCardModalActive" can-cancel :width="640">
+            <div class="card" id="card" @click="openModal = openModal == task.id ? 0 : task.id">
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p>{{task.name}}</p>
+                  </div>
                 </div>
+                <b-tabs v-model="activeTab" expanded>
+                  <b-tab-item label="Items">
+                  </b-tab-item>
+                  <b-tab-item label="Description">
+                      {{task.description}}
+                  </b-tab-item>
+                  <b-tab-item label="Due Date">
+                  </b-tab-item>
+                </b-tabs>
+              </div>
             </div>
-        </b-modal>
+          </b-modal>
         </div>
       </div>
       <div class="create-new-task">
@@ -55,7 +55,8 @@ export default {
       createNewTask: false,
       newTask: "",
       isCardModalActive: false,
-      openModal: 0
+      openModal: 0,
+      activeTab: 1
     }
   },
   created: function(){
@@ -196,8 +197,18 @@ export default {
   #card {
     height: 500px;
     border-radius: 20px;
-    color: white;
-    background: purple;
+    color: black;
+    background: white;
+  }
+
+  .media-content > p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .tabs > ul > li {
+    font-family: 'Roboto', sans-serif;
   }
 
 </style>
