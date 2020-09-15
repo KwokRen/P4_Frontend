@@ -2,13 +2,13 @@
   <div class="header">
     <b-navbar>
       <template slot="brand">
-        <b-navbar-item tag="router-link" :to="{ path: '/' }">
-          In-Check
+        <b-navbar-item>
+          <router-link :to="{name: 'Home', query: {URL: this.URL, token: this.token, loggedIn: this.loggedIn}}">In Check</router-link>
         </b-navbar-item>
       </template>
       <template slot="start">
         <b-navbar-item id="no-click">
-          <router-link to="/Task" v-if="loggedIn">Tasks</router-link>
+          <router-link :to="{name: 'Task', query: {URL: this.URL, token: this.token, loggedIn: this.loggedIn}}" v-if="loggedIn">Tasks</router-link>
         </b-navbar-item>
       </template>
       <template slot="end">
@@ -27,7 +27,7 @@
 <script>
 export default {
   name: "Header",
-  props: ["URL", "loggedIn"],
+  props: ["URL", "loggedIn", "token"],
   methods: {
     logout: function(){
       this.$emit('logout')
