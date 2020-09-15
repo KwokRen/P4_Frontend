@@ -2,33 +2,13 @@
   <div class="task-container">
     <div class="task-ui">
       <div class="task-list">
-        <div class="task" v-for="task of tasks" v-bind:key="task.id" @click="isCardModalActive = true; openModal = openModal == task.id ? 0 : task.id">
+        <div class="task" v-for="task of tasks" v-bind:key="task.id" v-bind:id="task.id" @click="getOneTask">
           <div class="radio-button" v-bind:id="task.id">
               <b-checkbox v-bind:id="task.id" :value="false"
               type="is-success">
               </b-checkbox>
           </div>
           {{task.name}}
-          <b-modal v-bind:id="task.id" v-if="openModal == task.id" v-model="isCardModalActive" can-cancel :width="640">
-            <div class="card" id="card" @click="openModal = openModal == task.id ? 0 : task.id">
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-content">
-                    <p>{{task.name}}</p>
-                  </div>
-                </div>
-                <b-tabs v-model="activeTab" expanded>
-                  <b-tab-item label="Items">
-                  </b-tab-item>
-                  <b-tab-item label="Description">
-                      {{task.description}}
-                  </b-tab-item>
-                  <b-tab-item label="Due Date">
-                  </b-tab-item>
-                </b-tabs>
-              </div>
-            </div>
-          </b-modal>
         </div>
       </div>
       <div class="create-new-task">
@@ -42,6 +22,35 @@
         </div>
       </div> 
     </div>
+    <b-modal v-model="isCardModalActive" can-cancel :width="640">
+      <div class="card" id="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p>Hello</p>
+            </div>
+          </div>
+          <b-tabs v-model="activeTab" expanded>
+            <b-tab-item label="Items">
+              <div v-for="item in items" v-bind:key="item.id">
+                {{item.name}}
+              </div>
+            </b-tab-item>
+            <b-tab-item label="Description">
+                <b-field>
+                    <b-input type="textarea"
+                        minlength="10"
+                        maxlength="100"
+                        placeholder="Maxlength automatically counts characters">
+                    </b-input>
+                </b-field>
+            </b-tab-item>
+            <b-tab-item label="Due Date">
+            </b-tab-item>
+          </b-tabs>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -56,7 +65,11 @@ export default {
       newTask: "",
       isCardModalActive: false,
       openModal: 0,
-      activeTab: 1
+      activeTab: 1,
+      items: [],
+      description: null,
+      date: null,
+      name: null
     }
   },
   created: function(){
@@ -95,7 +108,36 @@ export default {
       console.log(data.results)
       this.tasks = data.results
     })
-    }
+    },
+    getOneTask: function(event){
+      this.isCardModalActive = true
+      const {token, URL} = this.$route.query
+      fetch(`${URL}/todo/tasks/${event.target.id}`, {
+      method: "get",
+      headers: {
+        authorization: `JWT ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.name = data.name
+      this.getTaskItems(event.target.id)
+    })
+    },
+    getTaskItems: function(event){
+      const {token, URL} = this.$route.query
+      fetch(`${URL}/todo/tasks/${event}/items`, {
+      method: "get",
+      headers: {
+        authorization: `JWT ${token}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.items = data.results
+      console.log(data.results)
+    })
+    },
   }
 }
 
