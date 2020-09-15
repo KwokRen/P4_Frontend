@@ -3,12 +3,22 @@
     <div class="task-list">
       <div class="task" v-for="task of tasks" v-bind:key="task.id">
         <div class="radio-button" v-bind:id="task.id">
-            <b-checkbox :value="false"
+            <b-checkbox v-bind:id="task.id" :value="false"
             type="is-success">
             </b-checkbox>
         </div>
         {{task.name}}
       </div>
+      <div class="create-new-task">
+        <div v-if="!createNewTask" @click="createNewTask = !createNewTask"><i class="fas fa-plus"></i><span class="add-task">Add task</span></div>
+      </div>
+      <div class="text-area-create" v-if="createNewTask">
+        <b-input class="text-area" placeholder="e.g. Work on a project for a software engineering program" v-model="newTask"></b-input>
+        <div class="create-button-container">
+          <button class="button is-light" id="create-button" @click="createNewTask = !createNewTask">Create</button>
+          <button class="button is-light" @click="createNewTask = !createNewTask">Cancel</button>
+        </div>
+      </div> 
     </div>
   </div>
 </template>
@@ -19,7 +29,8 @@ export default {
   name: 'Task',
   data: function (){
     return {
-      tasks: []
+      tasks: [],
+      createNewTask: false
     }
   },
   created: function(){
@@ -45,7 +56,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 5px;
   }
 
   .task-container {
@@ -68,7 +79,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 20px;
+    margin: 15px;
     cursor: pointer;
     border-bottom: 1px solid #d2d2d2;
     color: black;
@@ -76,6 +87,54 @@ export default {
     height: 60px;
     width: 100%;
     padding: 10px;
+  }
+
+  .create-new-task {
+    color: black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .create-new-task > div {
+    cursor: pointer;
+  }
+
+  .create-new-task > div:hover {
+    color: purple;
+  }
+
+  .add-task {
+    margin-left: 10px;
+  }
+
+  .text-area-create {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .text-area > input {
+    height: 50px;
+    margin-bottom: 10px;
+  }
+
+  .create-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #create-button {
+    margin-right: 10px;
+    background: purple;
+    color: white;
+  }
+
+  #create-button:hover {
+    background: rgb(155, 0, 155)
   }
 
 </style>

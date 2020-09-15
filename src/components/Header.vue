@@ -14,7 +14,7 @@
       <template slot="end">
         <b-navbar-item tag="div">
           <div class="buttons" id="buttons">
-            <router-link :to="{ name: 'Register', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-primary">Register</a></router-link>
+            <router-link :to="{ name: 'Register', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light" id="purple">Register</a></router-link>
             <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light">Login</a></router-link>
             <router-link to="#" v-if="loggedIn" v-bind:URL="URL"><a class="button is-light" v-on:click="logout">Logout</a></router-link>
           </div>
@@ -46,6 +46,11 @@ export default {
 
 #buttons {
   justify-content: center;
+}
+
+#purple {
+  background: purple;
+  color: white;
 }
 
 </style>
