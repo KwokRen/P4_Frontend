@@ -2,13 +2,33 @@
   <div class="task-container">
     <div class="task-ui">
       <div class="task-list">
-        <div class="task" v-for="task of tasks" v-bind:key="task.id">
+        <div class="task" v-for="task of tasks" v-bind:key="task.id" @click="openModal = openModal == task.id ? 0 : task.id; isCardModalActive = true">
           <div class="radio-button" v-bind:id="task.id">
               <b-checkbox v-bind:id="task.id" :value="false"
               type="is-success">
               </b-checkbox>
           </div>
           {{task.name}}
+          <b-modal v-if="openModal == task.id" v-model="isCardModalActive" v-bind:id="task.id" :width="640" scroll="keep">
+            <div class="card" id="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4">John Smith</p>
+                            <p class="subtitle is-6">@johnsmith</p>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                        <a>#css</a> <a>{{task.name}}</a>
+                        <br>
+                        <small>11:09 PM - 1 Jan 2016</small>
+                    </div>
+                </div>
+            </div>
+        </b-modal>
         </div>
       </div>
       <div class="create-new-task">
@@ -33,7 +53,9 @@ export default {
     return {
       tasks: [],
       createNewTask: false,
-      newTask: ""
+      newTask: "",
+      isCardModalActive: false,
+      openModal: 0
     }
   },
   created: function(){
@@ -75,6 +97,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style>
@@ -168,6 +191,13 @@ export default {
 
   #create-button:hover {
     background: rgb(155, 0, 155)
+  }
+
+  #card {
+    height: 500px;
+    border-radius: 20px;
+    color: white;
+    background: purple;
   }
 
 </style>
