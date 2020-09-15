@@ -36,6 +36,9 @@ export default {
       newTask: ""
     }
   },
+  created: function(){
+    this.getTasks()
+  },
   methods: {
     create: function(){
       const {token, URL} = this.$route.query
@@ -43,7 +46,7 @@ export default {
       fetch(`${URL}/todo/tasks/`, {
         method: "post",
         headers: {
-          "Content-Type":"application/json",
+          "Content-Type": "application/json",
           "authorization": `JWT ${token}`
         },
         body: JSON.stringify(new_task)
@@ -53,12 +56,12 @@ export default {
         console.log(data)
         this.newTask = "",
         this.createNewTask = false
+        this.getTasks()
       })
-    }
-  },
-  created: function(){
-    const {token, URL} = this.$route.query
-    fetch(`${URL}/todo/tasks`, {
+    },
+    getTasks: function(){
+      const {token, URL} = this.$route.query
+      fetch(`${URL}/todo/tasks`, {
       method: "get",
       headers: {
         authorization: `JWT ${token}`
@@ -69,6 +72,7 @@ export default {
       console.log(data.results)
       this.tasks = data.results
     })
+    }
   }
 }
 </script>
@@ -100,8 +104,9 @@ export default {
 
   .task-list {
     width: 100%;
-    height: 300px;
+    height: 400px;
     overflow: auto;
+    margin-bottom: 20px;
   }
 
   .task {
