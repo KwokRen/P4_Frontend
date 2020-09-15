@@ -7,8 +7,8 @@
         </b-navbar-item>
       </template>
       <template slot="start">
-        <b-navbar-item href="#">
-          <router-link to="/Task">Tasks</router-link>
+        <b-navbar-item id="no-click">
+          <router-link to="/Task" v-if="loggedIn">Tasks</router-link>
         </b-navbar-item>
       </template>
       <template slot="end">
@@ -42,6 +42,14 @@ export default {
     width: 90%;
     height: 60px;
     margin: 10px auto
+}
+
+#no-click {
+  cursor: initial;
+}
+
+#no-click:hover {
+  background: white;
 }
 
 #buttons {

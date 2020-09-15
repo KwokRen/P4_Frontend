@@ -1,13 +1,15 @@
 <template>
   <div class="task-container">
-    <div class="task-list">
-      <div class="task" v-for="task of tasks" v-bind:key="task.id">
-        <div class="radio-button" v-bind:id="task.id">
-            <b-checkbox v-bind:id="task.id" :value="false"
-            type="is-success">
-            </b-checkbox>
+    <div class="task-ui">
+      <div class="task-list">
+        <div class="task" v-for="task of tasks" v-bind:key="task.id">
+          <div class="radio-button" v-bind:id="task.id">
+              <b-checkbox v-bind:id="task.id" :value="false"
+              type="is-success">
+              </b-checkbox>
+          </div>
+          {{task.name}}
         </div>
-        {{task.name}}
       </div>
       <div class="create-new-task">
         <div v-if="!createNewTask" @click="createNewTask = !createNewTask"><i class="fas fa-plus"></i><span class="add-task">Add task</span></div>
@@ -15,7 +17,7 @@
       <div class="text-area-create" v-if="createNewTask">
         <b-input class="text-area" placeholder="e.g. Work on a project for a software engineering program" v-model="newTask"></b-input>
         <div class="create-button-container">
-          <button class="button is-light" id="create-button" @click="createNewTask = !createNewTask">Create</button>
+          <button class="button is-light" id="create-button" @click="create">Create</button>
           <button class="button is-light" @click="createNewTask = !createNewTask">Cancel</button>
         </div>
       </div> 
@@ -30,7 +32,28 @@ export default {
   data: function (){
     return {
       tasks: [],
-      createNewTask: false
+      createNewTask: false,
+      newTask: ""
+    }
+  },
+  methods: {
+    create: function(){
+      const {token, URL} = this.$route.query
+      const new_task = {name: this.newTask}
+      fetch(`${URL}/todo/tasks/`, {
+        method: "post",
+        headers: {
+          "Content-Type":"application/json",
+          "authorization": `JWT ${token}`
+        },
+        body: JSON.stringify(new_task)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.newTask = "",
+        this.createNewTask = false
+      })
     }
   },
   created: function(){
@@ -62,31 +85,36 @@ export default {
   .task-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     height: 100vh;
   }
 
-  .task-list {
+  .task-ui {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 70%;
+  }
+
+  .task-list {
+    width: 100%;
+    height: 300px;
+    overflow: auto;
   }
 
   .task {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 15px;
     cursor: pointer;
     border-bottom: 1px solid #d2d2d2;
     color: black;
     background: #ffffff;
     height: 60px;
     width: 100%;
-    padding: 10px;
+    margin-bottom: 10px;
   }
 
   .create-new-task {
