@@ -58,7 +58,7 @@
                     </div>
                     <div class="edit-item" v-if="editItemName == item.id">
                         <b-input v-model="updateItem" v-bind:id="item.id"></b-input>
-                        <b-button v-bind:id="item.id"><span v-bind:id="item.id">Submit</span></b-button>
+                        <b-button v-bind:id="item.id"><span v-bind:id="item.id" @click="updateItemName">Submit</span></b-button>
                       </div>
                   </div>
                   <div class="right-side-task">
@@ -126,7 +126,8 @@ export default {
       createNewItem: false,
       newItem: "",
       itemId2: 0,
-      editItemName: 0
+      editItemName: 0,
+      updateItem: ""
     }
   },
   created: function(){
@@ -281,7 +282,29 @@ export default {
     .then(response => response.json())
     .then(() => {
       this.getTasks()
+      this.updateName = ""
       this.editTaskName = 0
+    })
+    },
+    updateItemName: function(event){
+      this.itemId2 = event.target.id
+      const {token, URL} = this.$route.query
+      fetch(`${URL}/todo/tasks/${this.taskId}/items/${this.itemId2}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `JWT ${token}`
+      },
+      body: JSON.stringify({
+        name: this.updateItem,
+        task: this.taskId
+      })
+    })
+    .then(response => response.json())
+    .then(() => {
+      this.getTaskItems(this.taskId)
+      this.editItemName = 0
+      this.updateItem = ""
     })
     },
     deleteTask: function(event){
