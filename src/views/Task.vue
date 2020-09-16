@@ -37,15 +37,21 @@
               </div>
             </b-tab-item>
             <b-tab-item label="Description">
+              <div class="description">
+                {{this.description}}
+              </div>
                 <b-field>
                     <b-input type="textarea"
-                        minlength="10"
-                        maxlength="100"
-                        placeholder="Maxlength automatically counts characters">
+                        placeholder="Add or edit a description for your task">
                     </b-input>
                 </b-field>
+                <b-button class="create-description">Submit</b-button>
             </b-tab-item>
             <b-tab-item label="Due Date">
+              <b-datepicker v-model="date" 
+                  inline 
+                  :unselectable-days-of-week="[0, 6]">
+              </b-datepicker>
             </b-tab-item>
           </b-tabs>
         </div>
@@ -68,7 +74,11 @@ export default {
       activeTab: 1,
       items: [],
       description: null,
-      date: null,
+      date: new Date(),
+      month: null,
+      day: null,
+      year: null,
+      dueDate: null,
       name: null
     }
   },
@@ -121,6 +131,7 @@ export default {
     .then(response => response.json())
     .then(data => {
       this.name = data.name
+      this.description = data.description
       this.getTaskItems(event.target.id)
     })
     },
@@ -237,7 +248,7 @@ export default {
   }
 
   #card {
-    height: 500px;
+    height: 600px;
     border-radius: 20px;
     color: black;
     background: white;
@@ -251,6 +262,47 @@ export default {
 
   .tabs > ul > li {
     font-family: 'Roboto', sans-serif;
+    width: 40px;
+  }
+
+  .textarea {
+    resize: none !important
+  }
+
+  .card-content {
+    height: 100%;
+  }
+
+  .control {
+    width: 100%;
+  }
+
+  .description {
+    height: 300px;
+  }
+
+  .create-description {
+    position: absolute;
+    float: right;
+    bottom: 53px;
+    right: 1px;
+    border: none !important;
+  }
+
+  .create-description:hover {
+    background: #d9d9d9;
+    border-radius: none !important;
+  }
+
+  .datepicker-header > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .pagination-list > div > div > div {
+    display: flex;
+    flex-direction: row;
   }
 
 </style>
