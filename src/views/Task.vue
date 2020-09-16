@@ -27,7 +27,8 @@
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p>Hello</p>
+              <p>{{this.name}}</p>
+              <h2>Due: {{this.dueDate}}</h2>
             </div>
           </div>
           <b-tabs v-model="activeTab" expanded>
@@ -42,16 +43,14 @@
               </div>
                 <b-field>
                     <b-input type="textarea"
-                        placeholder="Add or edit a description for your task">
+                        v-model="editDescription"
+                        placeholder="Edit a description for your task">
                     </b-input>
                 </b-field>
-                <b-button class="create-description">Submit</b-button>
+                <b-button class="create-description" @click="updateTaskDescription">Submit</b-button>
             </b-tab-item>
             <b-tab-item label="Due Date">
-              <b-datepicker v-model="date" 
-                  inline 
-                  :unselectable-days-of-week="[0, 6]">
-              </b-datepicker>
+              <input type="date" id="dueDate" name="dueDate" v-model="dueDate">
             </b-tab-item>
           </b-tabs>
         </div>
@@ -74,12 +73,11 @@ export default {
       activeTab: 1,
       items: [],
       description: null,
-      date: new Date(),
-      month: null,
-      day: null,
-      year: null,
-      dueDate: null,
-      name: null
+      editDescription: "",
+      dueDate: "",
+      name: null,
+      newName: '',
+      taskId: 0
     }
   },
   created: function(){
@@ -121,8 +119,11 @@ export default {
     },
     getOneTask: function(event){
       this.isCardModalActive = true
+      if(this.taskId == 0){
+        this.taskId = event.target.id
+      } 
       const {token, URL} = this.$route.query
-      fetch(`${URL}/todo/tasks/${event.target.id}`, {
+      fetch(`${URL}/todo/tasks/${this.taskId}`, {
       method: "get",
       headers: {
         authorization: `JWT ${token}`
@@ -132,7 +133,7 @@ export default {
     .then(data => {
       this.name = data.name
       this.description = data.description
-      this.getTaskItems(event.target.id)
+      this.getTaskItems(this.taskId)
     })
     },
     getTaskItems: function(event){
@@ -147,6 +148,44 @@ export default {
     .then(data => {
       this.items = data.results
       console.log(data.results)
+    })
+    },
+    updateTaskDescription: function(){
+      const {token, URL} = this.$route.query
+      console.log(this.taskId)
+      fetch(`${URL}/todo/tasks/${this.taskId}/`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `JWT ${token}`
+      },
+      body: JSON.stringify({
+        name: this.name,
+        description: this.editDescription
+      })
+    })
+    .then(response => response.json())
+    .then(() => {
+      this.getOneTask()
+      this.editDescription = ""
+    })
+    },
+    updateTaskDate: function(){
+      const {token, URL} = this.$route.query
+      fetch(`${URL}/todo/tasks/${this.taskId}/`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `JWT ${token}`
+      },
+      body: JSON.stringify({
+        name: this.name,
+        date: this.dueDate
+      })
+    })
+    .then(response => response.json())
+    .then(() => {
+      this.getOneTask()
     })
     },
   }
@@ -303,6 +342,10 @@ export default {
   .pagination-list > div > div > div {
     display: flex;
     flex-direction: row;
+  }
+
+  .tab-item > .field > .field-body > .field {
+    flex-direction: row-reverse !important;
   }
 
 </style>
