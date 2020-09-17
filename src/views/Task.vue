@@ -5,16 +5,18 @@
         <div class="task" v-for="task of tasks" v-bind:key="task.id" v-bind:id="task.id">
           <div class="left-side-task">
             <div class="radio-button" v-bind:id="task.id">
-                <b-checkbox v-bind:id="task.id" :value="false"
-                type="is-success">
-                </b-checkbox>
+              <!-- <input type="radio" v-bind:id="task.id" v-model="taskCompleted" > -->
+              <div class="field" v-bind:id="task.id" v-bind:checked="task.completed">
+                <input type="checkbox" v-bind:id="task.id" v-bind:checked="task.completed" v-bind:name="task.name" @click="checkComplete">
+                  <!-- <b-checkbox @change="checkComplete" v-model="taskCompleted" v-bind:id="task.id" :value="false" type="is-success"></b-checkbox> -->
+              </div>
             </div>
-            <div class="task-name" v-bind:id="task.id" @click="getOneTask"> 
+            <div class="task-name" v-bind:id="task.id" v-bind:class="{taskName: editTaskName == task.id}" @click="getOneTask"> 
               <p v-bind:id="task.id">{{task.name}}</p>
             </div>
             <div class="edit-name" v-if="editTaskName == task.id">
               <b-input v-model="updateName" v-bind:id="task.id"></b-input>
-              <b-button @click="updateTaskName" v-bind:id="task.id"><span v-bind:id="task.id">Submit</span></b-button>
+              <b-button @click="updateTaskName" v-bind:id="task.id"><span v-bind:id="task.id"><i class="fas fa-arrow-alt-circle-right" v-bind:id="task.id"></i></span></b-button>
             </div>
           </div>
           <div class="right-side-task">
@@ -40,7 +42,7 @@
           <div class="media">
             <div class="media-content">
               <p>{{this.name}}</p>
-              <h2>Due: {{this.dueDate}}</h2>
+              <h2>Due: {{this.date}}</h2>
             </div>
           </div>
           <b-tabs v-model="activeTab" expanded>
@@ -53,12 +55,12 @@
                         type="is-success">
                         </b-checkbox>
                     </div>
-                    <div class="task-name" v-bind:id="item.id"> 
+                    <div class="task-name" v-bind:id="item.id" v-bind:class="{taskName: editItemName == item.id}"> 
                       <p v-bind:id="item.id">{{item.name}}</p>
                     </div>
                     <div class="edit-item" v-if="editItemName == item.id">
                         <b-input v-model="updateItem" v-bind:id="item.id"></b-input>
-                        <b-button v-bind:id="item.id"><span v-bind:id="item.id" @click="updateItemName">Submit</span></b-button>
+                        <b-button v-bind:id="item.id"><span v-bind:id="item.id" @click="updateItemName"><i class="fas fa-arrow-alt-circle-right" v-bind:id="item.id"></i></span></b-button>
                       </div>
                   </div>
                   <div class="right-side-task">
@@ -91,7 +93,10 @@
                 <b-button class="create-description" @click="updateTaskDescription">Submit</b-button>
             </b-tab-item>
             <b-tab-item label="Due Date">
-              <input type="date" id="dueDate" name="dueDate" v-model="dueDate">
+              <div>
+                <input type="date" id="dueDate" name="dueDate" v-model="dueDate">
+                <b-button @click="updateTaskDate">Submit</b-button>
+              </div>
             </b-tab-item>
           </b-tabs>
         </div>
@@ -115,6 +120,7 @@ export default {
       items: [],
       description: null,
       editDescription: "",
+      date: null,
       dueDate: "",
       name: null,
       newName: '',
@@ -127,19 +133,46 @@ export default {
       newItem: "",
       itemId2: 0,
       editItemName: 0,
-      updateItem: ""
+      updateItem: "",
+      completedTaskId: 0,
+      taskCompleted: false
     }
   },
   created: function(){
     this.getTasks()
   },
   methods: {
-    // editingTaskName: function(){
-    //   // editTaskName = editTaskName == 0? task.id: 0; taskGone=task.id
-    //   if(editTaskName == 0){
+    checkComplete: function(event){
+      this.completedTaskId = event.target.id
 
-    //   }
-    // }
+      console.log(Boolean(event.target.parentElement.getAttribute('checked')))
+
+      this.taskCompleted =event.target.parentElement.getAttribute('checked')
+      if (this.taskCompleted) {
+        this.taskCompleted = false
+      } else {
+        this.taskCompleted = true
+      }
+
+
+      const {token, URL} = this.$route.query
+      fetch(`${URL}/todo/tasks/${this.completedTaskId}/`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `JWT ${token}`
+        },
+        body: JSON.stringify({
+          name: event.target.getAttribute('name'),
+          completed: this.taskCompleted
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.completed)
+        this.getTasks()
+      })
+    },
     create: function(){
       const {token, URL} = this.$route.query
       const new_task = {name: this.newTask}
@@ -191,12 +224,20 @@ export default {
       console.log(data.results)
       this.tasks = data.results
       // this.editTaskName = this.tasks.id
+      console.log(this.tasks[0].completed)
+      console.log(this.tasks[1].completed)
+      console.log(this.tasks[2].completed)
+      console.log(this.tasks[3].completed)
+      
     })
     },
     getOneTask: function(event){
-      console.log(`event target id: ${event.target.id}`)
       this.isCardModalActive = true
-      this.taskId = event.target.id
+      // if(this.taskId == 0){
+        if(event){
+          this.taskId = event.target.id
+        }
+      // } 
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}`, {
       method: "get",
@@ -208,6 +249,7 @@ export default {
     .then(data => {
       this.name = data.name
       this.description = data.description
+      this.date = data.date
       console.log(this.description)
       console.log(this.taskId)
       this.getTaskItems(this.taskId)
@@ -230,7 +272,6 @@ export default {
     },
     updateTaskDescription: function(){
       const {token, URL} = this.$route.query
-      console.log(this.taskId)
       fetch(`${URL}/todo/tasks/${this.taskId}/`, {
       method: "put",
       headers: {
@@ -244,11 +285,13 @@ export default {
     })
     .then(response => response.json())
     .then(() => {
+      console.log(this.taskId)
       this.getOneTask()
       this.editDescription = ""
     })
     },
     updateTaskDate: function(){
+      console.log(this.dueDate)
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/`, {
       method: "put",
@@ -585,6 +628,32 @@ export default {
   .edit-item {
     display: flex;
     margin-right: 10px;
+  }
+
+  .tab-content > .tab-item:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tab-content > .tab-item:nth-child(3) > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .taskName{
+    display: none;
+  }
+
+  .edit-name > .control > input {
+    border: none;
+  }
+
+  .edit-name > button {
+    border: none;
+    margin-right: 5px;
   }
 
 </style>
