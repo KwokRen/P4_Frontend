@@ -6,7 +6,7 @@
         <b-field>
             <b-input placeholder="Username" v-model="username"></b-input>
         </b-field>
-        <b-field>
+        <b-field message="Password must have at least eight characters.">
             <b-input type="password" placeholder="Password" v-model="password" password-reveal></b-input>
         </b-field>
         <button class="button is-light" @click="handleRegister">Register</button>
@@ -40,15 +40,66 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
-                    if (Array.isArray(data.email) || Array.isArray(data.username) || Array.isArray(data.password)){
-                        alert("Creation unsuccessful. Please try again.")
+                    if (Array.isArray(data.username)) {
+                        this.username_error()
+                    } else if (Array.isArray(data.password)) {
+                        this.password_error()
+                    } else if (data.email[0] == "Enter a valid email address.") {
+                        this.invalid_email()
+                    } else if (data.email[0] == "user with this email already exists.") {
+                        this.email_exists()
                     } else {
                         this.$emit('register', data)
                     }
                 });
             } else {
-                alert("All fields must be valid.")
+                this.empty_fields()
             }
+        },
+        empty_fields() {
+            this.$buefy.toast.open(
+                {
+                    duration: 4000,
+                    message: `Fields may not be left blank.`,
+                    type: 'is-danger'
+                }
+            )
+        },
+        username_error() {
+            this.$buefy.toast.open(
+                {
+                    duration: 4000,
+                    message: `This username has already been taken. Please try another one.`,
+                    type: 'is-danger'
+                }
+            )
+        },
+        password_error() {
+            this.$buefy.toast.open(
+                {
+                    duration: 4000,
+                    message: `Your password must contain at least eight characters.`,
+                    type: 'is-danger'
+                }
+            )
+        },
+        invalid_email() {
+            this.$buefy.toast.open(
+                {
+                    duration: 4000,
+                    message: `This email is invalid. Please try again.`,
+                    type: 'is-danger'
+                }
+            )
+        },
+        email_exists() {
+            this.$buefy.toast.open(
+                {
+                    duration: 4000,
+                    message: `A user with this email already exists.`,
+                    type: 'is-danger'
+                }
+            )
         }
     }
 }
