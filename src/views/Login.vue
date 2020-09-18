@@ -16,7 +16,7 @@ export default {
     data: function (){
         return {
             username: '',
-            password: ''
+            password: '',
         }
     },
     methods: {
@@ -36,14 +36,32 @@ export default {
                 .then(data => {
                     console.log(data)
                     if (data.non_field_errors){
-                        alert("Invalid credentials.")
+                        this.invalid_credentials()
                     } else {
                         this.$emit('loggedIn', data)
                     }
                 });
             } else {
-                alert("Invalid credentials.")
+                this.empty_fields()
             }
+        },
+        invalid_credentials() {
+            this.$buefy.toast.open(
+                {
+                    duration: 4000,
+                    message: `The credentials you have provided are invalid. Please try again.`,
+                    type: 'is-danger'
+                }
+            )
+        },
+        empty_fields() {
+            this.$buefy.toast.open(
+                {
+                    duration: 4000,
+                    message: `Fields may not be left blank.`,
+                    type: 'is-danger'
+                }
+            )
         }
     }
 }

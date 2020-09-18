@@ -5,10 +5,8 @@
         <div class="task" v-for="task of tasks" v-bind:key="task.id" v-bind:id="task.id">
           <div class="left-side-task">
             <div class="radio-button" v-bind:id="task.id">
-              <!-- <input type="radio" v-bind:id="task.id" v-model="taskCompleted" > -->
               <div class="field" v-bind:id="task.id" v-bind:checked="task.completed">
                 <input type="checkbox" v-bind:id="task.id" v-bind:checked="task.completed" v-bind:name="task.name" @click="checkComplete">
-                  <!-- <b-checkbox @change="checkComplete" v-model="taskCompleted" v-bind:id="task.id" :value="false" type="is-success"></b-checkbox> -->
               </div>
             </div>
             <div class="task-name" v-bind:id="task.id" v-bind:class="{taskName: editTaskName == task.id}" @click="getOneTask"> 
@@ -51,9 +49,9 @@
                 <div class="items-list" v-for="item in items" v-bind:key="item.id" v-bind:id="item.id">
                   <div class="left-side-task">
                     <div class="radio-button" v-bind:id="item.id">
-                        <b-checkbox v-bind:id="item.id" :value="false"
-                        type="is-success">
-                        </b-checkbox>
+                        <div class="field" v-bind:id="item.id" v-bind:checked="item.completed">
+                          <input type="checkbox" v-bind:id="item.id" v-bind:checked="item.completed" v-bind:name="item.name" @click="itemComplete">
+                        </div>
                     </div>
                     <div class="task-name" v-bind:id="item.id" v-bind:class="{taskName: editItemName == item.id}"> 
                       <p v-bind:id="item.id">{{item.name}}</p>
@@ -135,7 +133,9 @@ export default {
       editItemName: 0,
       updateItem: "",
       completedTaskId: 0,
-      taskCompleted: false
+      taskCompleted: false,
+      completedItemId: 0,
+      itemCompleted: false
     }
   },
   created: function(){
@@ -168,9 +168,35 @@ export default {
         })
       })
       .then(response => response.json())
-      .then(data => {
-        console.log(data.completed)
+      .then(() => {
         this.getTasks()
+      })
+    },
+    itemComplete: function(event){
+      this.completedItemId = event.target.id
+      console.log(Boolean(event.target.parentElement.getAttribute('checked')))
+      this.itemCompleted = event.target.parentElement.getAttribute('checked')
+      if (this.itemCompleted) {
+        this.itemCompleted = false
+      } else {
+        this.itemCompleted = true
+      }
+      const {token, URL} = this.$route.query
+      fetch(`${URL}/todo/tasks/${this.taskId}/items/${this.completedItemId}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `JWT ${token}`
+        },
+        body: JSON.stringify({
+          name: event.target.getAttribute('name'),
+          completed: this.itemCompleted,
+          task: this.taskId
+        })
+      })
+      .then(response => response.json())
+      .then(() => {
+        this.getTaskItems(this.taskId)
       })
     },
     create: function(){
@@ -223,12 +249,6 @@ export default {
     .then(data => {
       console.log(data.results)
       this.tasks = data.results
-      // this.editTaskName = this.tasks.id
-      console.log(this.tasks[0].completed)
-      console.log(this.tasks[1].completed)
-      console.log(this.tasks[2].completed)
-      console.log(this.tasks[3].completed)
-      
     })
     },
     getOneTask: function(event){
@@ -386,6 +406,13 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 10px;
+  }
+
+  .radio-button > .field > input {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
   }
 
   .task-container {
