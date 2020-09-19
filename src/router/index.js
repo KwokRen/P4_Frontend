@@ -23,11 +23,13 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'Login',
     component: Login,
+    props: true
   },
   {
     path: '/register',
     name: 'Register',
     component: Register,
+    props: true
   }
 ]
 
