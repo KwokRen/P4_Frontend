@@ -93,7 +93,7 @@
             </b-tab-item>
             <b-tab-item label="Due Date">
               <div>
-                <input type="date" id="dueDate" name="dueDate" v-model="dueDate">
+                <input type="date" id="dueDate" name="dueDate" v-model="dueDate" placeholder="yyyy-mm-dd">
                 <b-button @click="updateTaskDate">Submit</b-button>
               </div>
             </b-tab-item>
@@ -241,7 +241,7 @@ export default {
     },
     getTasks: function(){
       const {token, URL} = this.$route.query
-      fetch(`${URL}/todo/tasks`, {
+      fetch(`${URL}/todo/tasks/`, {
       method: "get",
       headers: {
         authorization: `JWT ${token}`
@@ -267,7 +267,7 @@ export default {
         }
       // } 
       const {token, URL} = this.$route.query
-      fetch(`${URL}/todo/tasks/${this.taskId}`, {
+      fetch(`${URL}/todo/tasks/${this.taskId}/`, {
       method: "get",
       headers: {
         authorization: `JWT ${token}`
