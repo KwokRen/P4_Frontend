@@ -2,11 +2,12 @@
   <div class="task-container">
     <div class="task-ui">
       <div class="task-list">
+        <h1 v-if="noTasks" class="noTasks">Click Add Task to get started!</h1>
         <div class="task" v-for="task of tasks" v-bind:key="task.id" v-bind:id="task.id">
           <div class="left-side-task">
             <div class="radio-button" v-bind:id="task.id">
               <div class="field" v-bind:id="task.id" v-bind:checked="task.completed">
-                <input type="checkbox" v-bind:id="task.id" v-bind:checked="task.completed" v-bind:name="task.name" @click="checkComplete">
+                <input type="checkbox" v-bind:id="task.id" v-bind:checked="task.completed" v-bind:name="task.name" @click="checkComplete" v-bind:class="{taskName: editTaskName == task.id}">
               </div>
             </div>
             <div class="task-name" v-bind:id="task.id" v-bind:class="{taskName: editTaskName == task.id}" @click="getOneTask"> 
@@ -19,7 +20,7 @@
           </div>
           <div class="right-side-task">
             <i class="fas fa-pencil-alt" v-bind:id="task.id" @click="editTaskName = editTaskName == task.id? 0: task.id"></i>
-            <i class="fas fa-trash-alt" v-bind:id="task.id" @click="deleteTask"></i>
+            <i class="fas fa-trash-alt" v-bind:id="task.id" @click="deleteTask" v-bind:class="{taskName: editTaskName == task.id}"></i>
           </div>
         </div>
       </div>
@@ -50,7 +51,7 @@
                   <div class="left-side-task">
                     <div class="radio-button" v-bind:id="item.id">
                         <div class="field" v-bind:id="item.id" v-bind:checked="item.completed">
-                          <input type="checkbox" v-bind:id="item.id" v-bind:checked="item.completed" v-bind:name="item.name" @click="itemComplete">
+                          <input type="checkbox" v-bind:id="item.id" v-bind:checked="item.completed" v-bind:name="item.name" @click="itemComplete" v-bind:class="{taskName: editItemName == item.id}">
                         </div>
                     </div>
                     <div class="task-name" v-bind:id="item.id" v-bind:class="{taskName: editItemName == item.id}"> 
@@ -63,7 +64,7 @@
                   </div>
                   <div class="right-side-task">
                     <i class="fas fa-pencil-alt" v-bind:id="item.id" @click="editItemName = editItemName == item.id ? 0: item.id"></i>
-                    <i class="fas fa-trash-alt" v-bind:id="item.id" @click="deleteItem"></i>
+                    <i class="fas fa-trash-alt" v-bind:id="item.id" @click="deleteItem" v-bind:class="{taskName: editItemName == item.id}"></i>
                   </div>
                 </div>
               </div>
@@ -135,7 +136,8 @@ export default {
       completedTaskId: 0,
       taskCompleted: false,
       completedItemId: 0,
-      itemCompleted: false
+      itemCompleted: false,
+      noTasks: false
     }
   },
   created: function(){
@@ -247,8 +249,14 @@ export default {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data.results)
-      this.tasks = data.results
+      console.log(data)
+      if (data.count == 0) {
+        this.noTasks = true
+        this.tasks = []
+      } else {
+        this.tasks = data.results
+        this.noTasks = false
+      }
     })
     },
     getOneTask: function(event){
@@ -402,6 +410,20 @@ export default {
 
 <style>
 
+  .noTasks {
+    font-size: 30px;
+    margin-top: 100px;
+  }
+
+  .navbar-burger:hover {
+    background-color: #d9d9d9;
+    border-radius: 30px;
+}
+
+  a.navbar-item:focus-within {
+    background-color: transparent !important;
+  }
+
   .radio-button {
     display: flex;
     justify-content: center;
@@ -428,7 +450,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 70%;
+    width: 85%;
   }
 
   .task-list {
@@ -475,6 +497,7 @@ export default {
     height: 100%;
     align-items: center;
     width: 90%;
+    margin-left: 20px;
   }
 
   .right-side-task {
@@ -482,12 +505,12 @@ export default {
   }
 
   .right-side-task > i {
-    font-size: 20px;
-    margin-right: 10px;
+    font-size: 25px;
+    margin-right: 15px;
   }
 
   .right-side-task > .fa-pencil-alt:hover {
-    color: green;
+    color: purple;
     cursor: pointer;
   }
 
@@ -579,7 +602,7 @@ export default {
   }
 
   .tab-item > .description {
-    height: 300px;
+    height: 250px;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -603,7 +626,7 @@ export default {
   }
 
   .tab-item {
-    height: 400px;
+    height: 350px;
   }
 
   .items-container {
@@ -654,12 +677,26 @@ export default {
 
   .edit-item {
     display: flex;
+    margin-right: 0px;
+    width: 100%;
+  }
+
+  .edit-item > .control > input {
+    margin-left: -60px;
+  }
+
+  .edit-item > button {
+    margin-left: -20px;
     margin-right: 10px;
+    border: none;
+  }
+
+  .edit-item > button:hover {
+    background: #d2d2d2;
   }
 
   .tab-content > .tab-item:nth-child(3) {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
@@ -675,12 +712,51 @@ export default {
   }
 
   .edit-name > .control > input {
-    border: none;
+    margin-left: -20px;
+  }
+
+  .button:focus, .button.is-focused {
+    border-color: none !important;
+  }
+
+  .button:focus:not(:active), .button.is-focused:not(:active) {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+  }
+
+  .edit-name {
+    width: 100%;
+  }
+
+  .edit-name > button:hover {
+    background: #d9d9d9;
   }
 
   .edit-name > button {
     border: none;
     margin-right: 5px;
+  }
+
+  @media only screen and (min-width: 800px) {
+
+    .edit-name {
+      width: 60%;
+    }
+
+    .task-ui {
+      width: 60%;
+    }
+
+    .right-side-task > i {
+      font-size: 25px;
+      margin-right: 30px;
+    }
+
+    .edit-item {
+      width: 60%;
+    }
+
+
   }
 
 </style>

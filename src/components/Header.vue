@@ -1,14 +1,14 @@
 <template>
   <div class="header">
     <b-navbar>
-      <template slot="brand">
+      <template slot="brand" v-if="!loggedIn">
         <b-navbar-item>
           <router-link :to="{name: 'Home', query: {URL: this.URL, token: this.token, loggedIn: this.loggedIn}}">In Check</router-link>
         </b-navbar-item>
       </template>
       <template slot="start">
         <b-navbar-item id="no-click">
-          <router-link :to="{name: 'Task', query: {URL: this.URL, token: this.token, loggedIn: this.loggedIn}}" v-if="loggedIn">Tasks</router-link>
+          <router-link :to="{name: 'Task', query: {URL: this.URL, token: this.token, loggedIn: this.loggedIn}}" v-if="loggedIn"><i class="fas fa-check"></i></router-link>
         </b-navbar-item>
       </template>
       <template slot="end">
@@ -38,10 +38,14 @@ export default {
 </script>
 
 <style>
+
+.navbar-menu {
+  height: 100%;
+}
+
 .header {
     width: 90%;
-    height: 60px;
-    margin: 10px auto
+    margin: 0px auto
 }
 
 #no-click {
@@ -58,11 +62,15 @@ export default {
 
 #purple {
   background: purple;
-  color: white;
+  color: white !important;
 }
 
 #purple:hover {
   background: rgb(165, 1, 165);
+}
+
+a {
+  color: black !important;
 }
 
 </style>

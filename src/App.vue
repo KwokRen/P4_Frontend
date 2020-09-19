@@ -74,6 +74,7 @@ export default {
 #nav {
   width: 100vw;
   font-family: 'Roboto', sans-serif;
+  height: 60px;
 }
 
 #nav a.router-link-exact-active {
