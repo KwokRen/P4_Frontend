@@ -24,7 +24,8 @@ export default {
     return {
       loggedIn: false,
       token: '',
-      URL: 'http://localhost:8000'
+      // URL: 'http://localhost:8000',
+      URL: 'https://p4backendtest.herokuapp.com'
     }
   },
   methods: {
@@ -75,6 +76,7 @@ export default {
   width: 100vw;
   font-family: 'Roboto', sans-serif;
   height: 60px;
+  background: purple;
 }
 
 #nav a.router-link-exact-active {

@@ -442,7 +442,7 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 80vh;
+    height: 90vh;
   }
 
   .task-ui {
@@ -455,7 +455,7 @@ export default {
 
   .task-list {
     width: 100%;
-    height: 350px;
+    height: 400px;
     overflow: auto;
     margin-bottom: 20px;
   }
@@ -467,7 +467,7 @@ export default {
     border-bottom: 1px solid #d2d2d2;
     color: black;
     background: #ffffff;
-    height: 60px;
+    height: 70px;
     width: 100%;
     margin-bottom: 10px;
   }
@@ -484,6 +484,7 @@ export default {
   .task-name > p {
     display: flex;
     justify-content: flex-start;
+    text-align: start;
   }
 
   .items-list > .left-side-task > .task-name > p {
@@ -497,15 +498,21 @@ export default {
     height: 100%;
     align-items: center;
     width: 90%;
-    margin-left: 20px;
+  }
+
+  .left-side-task, .right-side-task {
+    margin-bottom: 10px;
   }
 
   .right-side-task {
     display: flex;
   }
 
-  .right-side-task > i {
+  .right-side-task {
     font-size: 25px;
+  }
+
+  .right-side-task > i:nth-child(1) {
     margin-right: 15px;
   }
 
@@ -747,8 +754,7 @@ export default {
       width: 60%;
     }
 
-    .right-side-task > i {
-      font-size: 25px;
+    .right-side-task > i:nth-child(1) {
       margin-right: 30px;
     }
 

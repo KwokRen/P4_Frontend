@@ -2,21 +2,14 @@
   <div class="header">
     <b-navbar>
       <template slot="brand" v-if="!loggedIn">
-        <b-navbar-item>
-          <router-link :to="{name: 'Home', query: {URL: this.URL, token: this.token, loggedIn: this.loggedIn}}">In Check</router-link>
-        </b-navbar-item>
-      </template>
-      <template slot="start">
-        <b-navbar-item id="no-click">
-          <router-link :to="{name: 'Task', query: {URL: this.URL, token: this.token, loggedIn: this.loggedIn}}" v-if="loggedIn"><i class="fas fa-check"></i></router-link>
-        </b-navbar-item>
+        <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL" class="logo"></router-link>
       </template>
       <template slot="end">
         <b-navbar-item tag="div">
           <div class="buttons" id="buttons">
             <router-link :to="{ name: 'Register', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light" id="purple">Register</a></router-link>
-            <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light">Log in</a></router-link>
-            <router-link to="#" v-if="loggedIn" v-bind:URL="URL"><a class="button is-light" v-on:click="logout">Logout</a></router-link>
+            <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL"><a class="button is-light" id="purple">Log in</a></router-link>
+            <router-link to="#" v-if="loggedIn" v-bind:URL="URL"><a class="button is-light" id="purple" v-on:click="logout">Logout</a></router-link>
           </div>
         </b-navbar-item>
       </template>
@@ -39,8 +32,27 @@ export default {
 
 <style>
 
+.logo {
+  background: url("https://res.cloudinary.com/dpggcudix/image/upload/v1600528997/Screen_Shot_2020-09-19_at_11.22.53_AM_s3977i.png");
+  background-size: cover;
+  width: 150px;
+}
+
+.navbar {
+  background: purple;
+}
+
+.navbar-brand, .navbar-tabs {
+  background: purple;
+}
+
+.navbar-burger {
+  color: white !important;
+}
+
 .navbar-menu {
   height: 100%;
+  background: purple;
 }
 
 .header {
@@ -50,10 +62,11 @@ export default {
 
 #no-click {
   cursor: initial;
+  background: transparent;
 }
 
 #no-click:hover {
-  background: white;
+  background: transparent;
 }
 
 #buttons {
@@ -62,15 +75,22 @@ export default {
 
 #purple {
   background: purple;
-  color: white !important;
 }
 
 #purple:hover {
   background: rgb(165, 1, 165);
 }
 
-a {
-  color: black !important;
+#tasks-nav:hover {
+  color: #d2d2d2;
+}
+
+a > a {
+  color: white !important;
+}
+
+.tasks-nav {
+  margin-left: 5px;
 }
 
 </style>
