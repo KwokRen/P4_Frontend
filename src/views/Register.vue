@@ -20,7 +20,12 @@ export default {
         return {
             username: '',
             password: '',
-            email: ''
+            email: '',
+            user: '',
+            token: '',
+            emailAddress: '',
+            successfulRegister: false,
+            loggedIn: false
         }
     },
     methods: {
@@ -39,19 +44,36 @@ export default {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (Array.isArray(data.username)) {
                         this.username_error()
+                        this.successfulRegister = false
                     } else if (Array.isArray(data.password)) {
                         this.password_error()
+                        this.successfulRegister = false
                     } else if (data.email[0] == "Enter a valid email address.") {
                         this.invalid_email()
+                        this.successfulRegister = false
                     } else if (data.email[0] == "user with this email already exists.") {
                         this.email_exists()
+                        this.successfulRegister = false
                     } else {
                         this.$emit('register', data)
+                        console.log(data)
+                        this.successfulRegister = true
+                        this.user = data.username
+                        this.token = data.token
+                        this.email = data.email
+                        this.loggedIn = true
                     }
-                });
+                })
+                .then(() => {
+                    if (this.successfulRegister == true) {
+                        localStorage.setItem("username", this.user)
+                        localStorage.setItem("email", this.email)
+                        localStorage.setItem("token", this.token)
+                        localStorage.setItem("loggedIn", this.loggedIn)
+                    }
+                })
             } else {
                 this.empty_fields()
             }

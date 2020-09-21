@@ -59,6 +59,10 @@ export default {
         this.user = localStorage.getItem("username")
         this.token = localStorage.getItem("token")
         this.email = localStorage.getItem("email")
+        this.$router.push({ 
+         path: 'Task',
+        query: { token: this.token, URL: this.URL }
+      });
         return true
       } else {
         return false
