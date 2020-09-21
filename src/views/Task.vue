@@ -412,6 +412,7 @@ export default {
         this.user = localStorage.getItem("username")
         this.token = localStorage.getItem("token")
         this.email = localStorage.getItem("email")
+        console.log('hello')
         return true
       } else {
         return false
