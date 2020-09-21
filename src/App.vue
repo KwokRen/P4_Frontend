@@ -36,13 +36,11 @@ export default {
          path: 'Task',
         query: { token: this.token, URL: this.URL }
       });
-      console.log("Logged in successful")
     },
     logout: function(){
       this.loggedIn = false,
       this.token = {}
       localStorage.clear()
-      console.log("Log out successful")
     },
     register: function(event){
       this.loggedIn = true,
@@ -54,8 +52,9 @@ export default {
     }
   },
   beforeMount() {
-    const checkIfLoggedIn = ()=> {
+    const checkIfLoggedIn = () => {
       let isLoggedIn = localStorage.getItem("loggedIn");
+      console.log(isLoggedIn)
       if (isLoggedIn == "true") {
         this.user = localStorage.getItem("username")
         this.token = localStorage.getItem("token")

@@ -110,7 +110,6 @@ export default {
   name: 'Task',
   data: function (){
     return {
-      loggedIn: false,
       tasks: [],
       createNewTask: false,
       newTask: "",
@@ -404,21 +403,6 @@ export default {
       .then(response => response.json())
       .then(() => this.getTaskItems(this.taskId))
     }
-  },
-  beforeMount() {
-    const checkIfLoggedIn = ()=> {
-      let isLoggedIn = localStorage.getItem("loggedIn");
-      if (isLoggedIn == "true") {
-        this.user = localStorage.getItem("username")
-        this.token = localStorage.getItem("token")
-        this.email = localStorage.getItem("email")
-        console.log('hello')
-        return true
-      } else {
-        return false
-      }
-    }
-    this.loggedIn = checkIfLoggedIn()
   }
 }
 
@@ -632,7 +616,6 @@ export default {
   }
 
   .create-description {
-    position: absolute;
     float: right;
     bottom: 53px;
     right: 1px;
