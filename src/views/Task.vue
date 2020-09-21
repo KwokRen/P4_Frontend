@@ -20,9 +20,20 @@
           </div>
           <div class="right-side-task">
             <i class="fas fa-pencil-alt" v-bind:id="task.id" @click="editTaskName = editTaskName == task.id? 0: task.id"></i>
-            <i class="fas fa-trash-alt" v-bind:id="task.id" @click="deleteTask" v-bind:class="{taskName: editTaskName == task.id}"></i>
+            <i class="fas fa-trash-alt" v-bind:id="task.id" @click="isDeleteModalActive = true; taskDelete = task.id" v-bind:class="{taskName: editTaskName == task.id}"></i>
           </div>
         </div>
+        <b-modal v-model="isDeleteModalActive" :width="640" scroll="keep" id="delete-modal">
+            <div class="card" id="delete-card">
+                <div class="card-content">
+                    <div class="content">
+                        Are you sure?
+                    </div>
+                    <b-button @click="deleteTask" v-bind:id="taskDelete">Yes</b-button>
+                    <b-button @click="isDeleteModalActive = false">Cancel</b-button>
+                </div>
+            </div>
+        </b-modal>
       </div>
       <div class="create-new-task">
         <div v-if="!createNewTask" @click="createNewTask = !createNewTask"><i class="fas fa-plus"></i><span class="add-task">Add Task</span></div>
@@ -64,9 +75,20 @@
                   </div>
                   <div class="right-side-task">
                     <i class="fas fa-pencil-alt" v-bind:id="item.id" @click="editItemName = editItemName == item.id ? 0: item.id"></i>
-                    <i class="fas fa-trash-alt" v-bind:id="item.id" @click="deleteItem" v-bind:class="{taskName: editItemName == item.id}"></i>
+                    <i class="fas fa-trash-alt" v-bind:id="item.id" @click="isDeleteItemModalActive = true; itemDelete = item.id" v-bind:class="{taskName: editItemName == item.id}"></i>
                   </div>
                 </div>
+                <b-modal v-model="isDeleteItemModalActive" :width="640" scroll="keep" id="delete-item-modal">
+                    <div class="card" id="delete-item">
+                        <div class="card-content">
+                            <div class="content">
+                                Are you sure?
+                            </div>
+                            <b-button @click="deleteItem" v-bind:id="itemDelete">Yes</b-button>
+                            <b-button @click="isDeleteItemModalActive = false">Cancel</b-button>
+                        </div>
+                    </div>
+                </b-modal>
               </div>
               <div class="create-new-item">
                 <div v-if="!createNewItem" @click="createNewItem = !createNewItem"><i class="fas fa-plus"></i><span class="add-task">Add Item</span></div>
@@ -137,7 +159,11 @@ export default {
       taskCompleted: false,
       completedItemId: 0,
       itemCompleted: false,
-      noTasks: false
+      noTasks: false,
+      isDeleteModalActive: false,
+      taskDelete: 0,
+      isDeleteItemModalActive: false,
+      itemDelete: 0
     }
   },
   created: function(){
@@ -284,7 +310,6 @@ export default {
     })
     },
     getTaskItems: function(event){
-      console.log(event)
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${event}/items`, {
       method: "get",
@@ -378,30 +403,36 @@ export default {
       this.updateItem = ""
     })
     },
-    deleteTask: function(event){
-      this.taskId2 = event.target.id
+    deleteTask: function(){
+      // this.taskId2 = event.target.id
       const {token, URL} = this.$route.query
-      fetch(`${URL}/todo/tasks/${this.taskId2}/`, {
+      fetch(`${URL}/todo/tasks/${this.taskDelete}/`, {
         method: "delete",
         headers: {
           authorization: `JWT ${token}`
         }
       })
       .then(response => response.json())
-      .then(() => this.getTasks())
+      .then(() => {
+        this.getTasks()
+        this.isDeleteModalActive = false
+      })
     },
-    deleteItem: function(event){
-      this.itemId2 = event.target.id
-      console.log(this.itemId2)
+    deleteItem: function(){
+      // this.itemId2 = event.target.id
+      // console.log(this.itemId2)
       const {token, URL} = this.$route.query
-      fetch(`${URL}/todo/tasks/${this.taskId}/items/${this.itemId2}`, {
+      fetch(`${URL}/todo/tasks/${this.taskId}/items/${this.itemDelete}`, {
         method: "delete",
         headers: {
           authorization: `JWT ${token}`
         }
       })
       .then(response => response.json())
-      .then(() => this.getTaskItems(this.taskId))
+      .then(() => {
+        this.getTaskItems(this.taskId)
+        this.isDeleteItemModalActive = false
+      })
     }
   }
 }
@@ -583,6 +614,17 @@ export default {
     border-radius: 20px;
     color: black;
     background: white;
+  }
+
+  #delete-modal > .animation-content, #delete-item-modal > .animation-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #delete-card, #delete-item {
+    border-radius: 20px;
+    width: 400px;
   }
 
   .media-content > p {

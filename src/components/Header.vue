@@ -35,6 +35,7 @@ export default {
   background: url("https://res.cloudinary.com/dpggcudix/image/upload/v1600528997/Screen_Shot_2020-09-19_at_11.22.53_AM_s3977i.png");
   background-size: cover;
   width: 150px;
+  height: 100%;
 }
 
 .navbar {

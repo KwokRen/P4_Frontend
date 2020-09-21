@@ -107,4 +107,16 @@ export default {
   width: 100px;
 }
 
+.navbar-brand {
+  height: 3.75rem;
+}
+
+@media only screen and (min-width: 1023px) {
+  
+  .navbar-brand {
+    height: 3.5rem;
+  }
+
+}
+
 </style>
