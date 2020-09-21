@@ -17,6 +17,11 @@ export default {
         return {
             username: '',
             password: '',
+            user: '',
+            token: '',
+            email: '',
+            loggedIn: false,
+            successful: false
         }
     },
     methods: {
@@ -37,10 +42,24 @@ export default {
                     console.log(data)
                     if (data.non_field_errors){
                         this.invalid_credentials()
+                        this.successful = false
                     } else {
+                        this.user = data.username
+                        this.email = data.email
+                        this.token = data.token
+                        this.successful = true
+                        this.loggedIn = true
                         this.$emit('loggedIn', data)
                     }
-                });
+                })
+                .then(() => {
+                    if (this.successful == true) {
+                        localStorage.setItem("username", this.user)
+                        localStorage.setItem("email", this.email)
+                        localStorage.setItem("token", this.token)
+                        localStorage.setItem("loggedIn", this.loggedIn)
+                    }
+                })
             } else {
                 this.empty_fields()
             }

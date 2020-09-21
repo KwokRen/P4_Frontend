@@ -24,7 +24,6 @@ export default {
   methods: {
     logout: function(){
       this.$emit('logout')
-      console.log('hello again')
     }
   }
 };
