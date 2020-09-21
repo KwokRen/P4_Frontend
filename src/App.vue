@@ -41,6 +41,7 @@ export default {
     logout: function(){
       this.loggedIn = false,
       this.token = {}
+      localStorage.clear()
       console.log("Log out successful")
     },
     register: function(event){
