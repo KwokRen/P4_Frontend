@@ -24,8 +24,8 @@ export default {
     return {
       loggedIn: false,
       token: '',
-      //URL: 'http://localhost:8000',
-      URL: 'https://p4backendtest.herokuapp.com'
+      URL: 'http://localhost:8000',
+      //URL: 'https://p4backendtest.herokuapp.com'
     }
   },
   methods: {
