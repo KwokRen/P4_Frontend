@@ -638,7 +638,7 @@ export default {
   .items-container {
     display: flex;
     flex-direction: column;
-    height: 220px;
+    height: 250px;
     overflow: auto;
   }
 
@@ -687,13 +687,7 @@ export default {
     width: 100%;
   }
 
-  .edit-item > .control > input {
-    margin-left: -60px;
-  }
-
   .edit-item > button {
-    margin-left: -20px;
-    margin-right: 10px;
     border: none;
   }
 
