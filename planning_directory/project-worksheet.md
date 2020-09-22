@@ -48,17 +48,17 @@ For this project, I will be building a task management application. The purpose 
 
 #### MVP 
 
-:white_circle: Registration Feature <br>
-:white_circle: Login via Username and Password <br>
-:white_circle: Task Homepage <br>
+:white_check_mark: Registration Feature <br>
+:white_check_mark: Login via Username and Password <br>
+:white_check_mark: Task Homepage <br>
 :white_check_mark: Deployment <br>
-:white_circle: Hamburger menu  <br>
-:white_circle: Navigation bar (Fixed) <br>
-:white_circle: Mobile First <br>
-:white_circle: Creating Tasks/Lists <br>
-:white_circle: Updating Tasks/Lists <br>
-:white_circle: Deleting Tasks/Lists <br>
-:white_circle: Landing page <br>
+:white_check_mark: Hamburger menu  <br>
+:white_check_mark: Navigation bar <br>
+:white_check_mark: Mobile First <br>
+:white_check_mark: Creating Tasks/Lists <br>
+:white_check_mark: Updating Tasks/Lists <br>
+:white_check_mark: Deleting Tasks/Lists <br>
+:white_check_mark: Landing page <br>
 
 #### PostMVP 
 
@@ -73,23 +73,23 @@ For this project, I will be building a task management application. The purpose 
 ### MVP
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Authentication | H | 2hrs | hr | hr|
-| User Dashboard / Homepage | H | 3hrs | hr | hr|
-| Deploying Frontend | L | 0hr | hr | hr|
-| Mobile Responsiveness | H | 3hrs | hr | hr |
-| Hamburger Menu | M | 1hr | hr | hr|
-| Fixed Navigation Bar | H | 1hr | hr | hr |
-| CRUD Tasks | H | 10hrs | hr | hr |
-| Total | H | 20hrs| hrs | hrs |
+| Authentication | H | 2hrs | 2hrs | 2hrs |
+| User Dashboard / Homepage | H | 3hrs | 1hr | 1hr |
+| Deploying Frontend | L | 0hr | 0hr | 0hr |
+| Mobile Responsiveness | H | 3hrs | 1hr | 1hr |
+| Hamburger Menu | M | 1hr | 0hr | 0hr |
+| Navigation Bar | H | 1hr | 0hr | 0hr |
+| CRUD Tasks | H | 10hrs | 10hrs | 10hrs |
+| Total | H | 20hrs| 14hrs | 14hrs |
 
 ### PostMVP
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Search Bar | L | 5hrs | hr | hr|
-| Archived Section | L | 3hrs | hr | hr|
-| Different Themes | L | 5hrs | hr | hr|
-| Refactoring & Fixing Bugs | L | 10hrs | hr | hr|
-| Total | H | 23hrs| hrs | hrs |
+| Search Bar | L | 5hrs | 0hr | 0hr|
+| Archived Section | L | 3hrs | 0hr | 0hr|
+| Different Themes | L | 5hrs | 0hr | 0hr|
+| Refactoring & Fixing Bugs | L | 10hrs | 10hr | 10hr|
+| Total | H | 23hrs| 10hrs | 10hrs |
 
 ## Additional Libraries
 
@@ -100,11 +100,7 @@ For this project, I will be building a task management application. The purpose 
 ## Code Snippet
 
 ```
-Work in progress...
+<input type="checkbox" v-bind:id="task.id" v-bind:checked="task.completed" v-bind:name="task.name" @click="checkComplete" v-bind:class="{taskName: editTaskName == task.id}">
 ```
 
-## Issues and Resolutions
-
-```
-Work in progress...
-```
+This one line of code helps make the checks function. The reason why I added all these binds was to make sure I can grab the data when I need to use it for the information required for the check methods.

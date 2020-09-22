@@ -178,8 +178,6 @@ export default {
       } else {
         this.taskCompleted = true
       }
-
-
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.completedTaskId}/`, {
         method: "put",
