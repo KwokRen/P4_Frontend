@@ -58,7 +58,6 @@ export default {
                         this.successfulRegister = false
                     } else {
                         this.$emit('register', data)
-                        console.log(data)
                         this.successfulRegister = true
                         this.user = data.username
                         this.token = data.token

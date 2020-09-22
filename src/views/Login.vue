@@ -39,7 +39,6 @@ export default {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (data.non_field_errors){
                         this.invalid_credentials()
                         this.successful = false
@@ -124,5 +123,6 @@ export default {
         align-items: center;
         width: 100%;
     }
+
 
 </style>

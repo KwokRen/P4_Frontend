@@ -172,9 +172,6 @@ export default {
   methods: {
     checkComplete: function(event){
       this.completedTaskId = event.target.id
-
-      console.log(Boolean(event.target.parentElement.getAttribute('checked')))
-
       this.taskCompleted =event.target.parentElement.getAttribute('checked')
       if (this.taskCompleted) {
         this.taskCompleted = false
@@ -202,7 +199,6 @@ export default {
     },
     itemComplete: function(event){
       this.completedItemId = event.target.id
-      console.log(Boolean(event.target.parentElement.getAttribute('checked')))
       this.itemCompleted = event.target.parentElement.getAttribute('checked')
       if (this.itemCompleted) {
         this.itemCompleted = false
@@ -239,8 +235,7 @@ export default {
         body: JSON.stringify(new_task)
       })
       .then(response => response.json())
-      .then(data => {
-        console.log(data)
+      .then(() => {
         this.newTask = "",
         this.createNewTask = false
         this.getTasks()
@@ -258,8 +253,7 @@ export default {
         body: JSON.stringify(new_task)
       })
       .then(response => response.json())
-      .then(data => {
-        console.log(data)
+      .then(() => {
         this.newItem = "",
         this.createNewItem = false
         this.getTaskItems(this.taskId)
@@ -275,7 +269,6 @@ export default {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       if (data.count == 0) {
         this.noTasks = true
         this.tasks = []
@@ -304,8 +297,6 @@ export default {
       this.name = data.name
       this.description = data.description
       this.date = data.date
-      console.log(this.description)
-      console.log(this.taskId)
       this.getTaskItems(this.taskId)
     })
     },
@@ -320,7 +311,6 @@ export default {
     .then(response => response.json())
     .then(data => {
       this.items = data.results
-      console.log(data.results)
     })
     },
     updateTaskDescription: function(){
@@ -338,13 +328,11 @@ export default {
     })
     .then(response => response.json())
     .then(() => {
-      console.log(this.taskId)
       this.getOneTask()
       this.editDescription = ""
     })
     },
     updateTaskDate: function(){
-      console.log(this.dueDate)
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/`, {
       method: "put",
@@ -420,7 +408,6 @@ export default {
     },
     deleteItem: function(){
       // this.itemId2 = event.target.id
-      // console.log(this.itemId2)
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/items/${this.itemDelete}`, {
         method: "delete",

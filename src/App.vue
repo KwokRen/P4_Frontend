@@ -54,7 +54,6 @@ export default {
   beforeMount() {
     const checkIfLoggedIn = () => {
       let isLoggedIn = localStorage.getItem("loggedIn");
-      console.log(isLoggedIn)
       if (isLoggedIn == "true") {
         this.user = localStorage.getItem("username")
         this.token = localStorage.getItem("token")

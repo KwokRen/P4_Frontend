@@ -11,7 +11,6 @@
       <p>It's time you take control of your life with In-Check!</p>
       <p>The fastest and most efficient task management tool on the market is now free and in the palm of your hands.</p>
       <p>Register now to start changing your life today!</p>
-      <router-link :to="{ name: 'Register'}"><b-button>Register</b-button></router-link>
     </div>
     <footer class="copyright"><p>Copyright © 2020 In-Check</p>
     <a href="https://kwokren.github.io/PortfolioWebsite/projectOne/mainPage/" target="_blank"><img src="https://res.cloudinary.com/dpggcudix/image/upload/v1600736614/KR_-_Logo-05_bqxdie.png"></a>
