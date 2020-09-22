@@ -1,5 +1,5 @@
 <template>
-    <div class=login>
+    <div class=register>
          <b-field>
             <b-input placeholder="Email" v-model="email"></b-input>
         </b-field>
@@ -129,12 +129,15 @@ export default {
 
 <style>
 
-    .login {
+    .register {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 25px;
+        margin-top: 100px;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-bottom: 25px;
     }
 
     .login-container {

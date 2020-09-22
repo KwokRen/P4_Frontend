@@ -93,7 +93,10 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 25px;
+        margin-top: 100px;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-bottom: 25px;
     }
 
     .login-container {

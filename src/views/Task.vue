@@ -19,8 +19,8 @@
             </div>
           </div>
           <div class="right-side-task">
-            <i class="fas fa-pencil-alt" v-bind:id="task.id" @click="editTaskName = editTaskName == task.id? 0: task.id"></i>
-            <i class="fas fa-trash-alt" v-bind:id="task.id" @click="isDeleteModalActive = true; taskDelete = task.id" v-bind:class="{taskName: editTaskName == task.id}"></i>
+            <i class="fas fa-pencil-alt" v-bind:id="task.id" @click="editTaskName = editTaskName == task.id? 0: task.id; createNewTask = false; createNewItem = false; editItemName = 0"></i>
+            <i class="fas fa-trash-alt" v-bind:id="task.id" @click="isDeleteModalActive = true; taskDelete = task.id; editItemName = 0; editTaskName = 0; createNewItem = false; createNewTask = false" v-bind:class="{taskName: editTaskName == task.id}"></i>
           </div>
         </div>
         <b-modal v-model="isDeleteModalActive" :width="640" scroll="keep" id="delete-modal">
@@ -36,7 +36,7 @@
         </b-modal>
       </div>
       <div class="create-new-task">
-        <div v-if="!createNewTask" @click="createNewTask = !createNewTask"><i class="fas fa-plus"></i><span class="add-task">Add Task</span></div>
+        <div v-if="!createNewTask" @click="createNewTask = !createNewTask; editTaskName = 0; editItemName = 0; createNewItem = false"><i class="fas fa-plus"></i><span class="add-task">Add Task</span></div>
       </div>
       <div class="text-area-create" v-if="createNewTask">
         <b-input class="text-area" placeholder="e.g. Work on a project for a software engineering program" v-model="newTask"></b-input>
@@ -74,8 +74,8 @@
                       </div>
                   </div>
                   <div class="right-side-task">
-                    <i class="fas fa-pencil-alt" v-bind:id="item.id" @click="editItemName = editItemName == item.id ? 0: item.id"></i>
-                    <i class="fas fa-trash-alt" v-bind:id="item.id" @click="isDeleteItemModalActive = true; itemDelete = item.id" v-bind:class="{taskName: editItemName == item.id}"></i>
+                    <i class="fas fa-pencil-alt" v-bind:id="item.id" @click="editItemName = editItemName == item.id ? 0: item.id; editTaskName = 0; createNewTask = false; createNewItem = false"></i>
+                    <i class="fas fa-trash-alt" v-bind:id="item.id" @click="isDeleteItemModalActive = true; itemDelete = item.id; editTaskName = 0; createNewItem = false; createNewTask = false; editItemName = 0" v-bind:class="{taskName: editItemName == item.id}"></i>
                   </div>
                 </div>
                 <b-modal v-model="isDeleteItemModalActive" :width="640" scroll="keep" id="delete-item-modal">
@@ -91,7 +91,7 @@
                 </b-modal>
               </div>
               <div class="create-new-item">
-                <div v-if="!createNewItem" @click="createNewItem = !createNewItem"><i class="fas fa-plus"></i><span class="add-task">Add Item</span></div>
+                <div v-if="!createNewItem" @click="createNewItem = !createNewItem; createNewTask = false; editItemName = 0; editTaskName = 0"><i class="fas fa-plus"></i><span class="add-task">Add Item</span></div>
               </div>
               <div class="text-area-create-item" v-if="createNewItem">
                 <b-input class="text-area" placeholder="e.g. Read up documentation for Buefy" v-model="newItem"></b-input>
@@ -114,7 +114,7 @@
                 <b-button class="create-description" @click="updateTaskDescription">Submit</b-button>
             </b-tab-item>
             <b-tab-item label="Due Date">
-              <div>
+              <div class="due-date">
                 <input type="date" id="dueDate" name="dueDate" v-model="dueDate" placeholder="yyyy-mm-dd">
                 <b-button @click="updateTaskDate">Submit</b-button>
               </div>
@@ -532,7 +532,7 @@ export default {
   }
 
   .left-side-task, .right-side-task {
-    margin-bottom: 10px;
+    margin: 10px;
   }
 
   .right-side-task {
@@ -588,6 +588,10 @@ export default {
     margin-bottom: 20px;
   }
 
+  .text-area-create-item {
+    margin-top: 10px;
+  }
+
   .text-area > input {
     height: 50px;
     margin-bottom: 10px;
@@ -624,7 +628,11 @@ export default {
 
   #delete-card, #delete-item {
     border-radius: 20px;
-    width: 400px;
+    width: 300px;
+  }
+
+  #delete-card > .card-content > button, #delete-item > .card-content > button {
+    margin: 10px;
   }
 
   .media-content > p {
@@ -779,6 +787,14 @@ export default {
     margin-right: 5px;
   }
 
+  .due-date {
+    margin-top: 100px;
+  }
+
+  .due-date > input {
+    margin-bottom: 10px;
+  }
+
   @media only screen and (min-width: 800px) {
 
     .edit-name {
@@ -796,7 +812,6 @@ export default {
     .edit-item {
       width: 60%;
     }
-
 
   }
 
