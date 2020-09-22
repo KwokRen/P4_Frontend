@@ -3,8 +3,10 @@
     <div class="task-ui">
       <div class="task-list">
         <h1 v-if="noTasks" class="noTasks">Click Add Task to get started!</h1>
+        <!-- Creating the user dashboard and populating the tasks -->
         <div class="task" v-for="task of tasks" v-bind:key="task.id" v-bind:id="task.id">
           <div class="left-side-task">
+            <!-- Checkbox for whether tasks are completed -->
             <div class="radio-button" v-bind:id="task.id">
               <div class="field" v-bind:id="task.id" v-bind:checked="task.completed">
                 <input type="checkbox" v-bind:id="task.id" v-bind:checked="task.completed" v-bind:name="task.name" @click="checkComplete" v-bind:class="{taskName: editTaskName == task.id}">
@@ -13,16 +15,19 @@
             <div class="task-name" v-bind:id="task.id" v-bind:class="{taskName: editTaskName == task.id}" @click="getOneTask"> 
               <p v-bind:id="task.id">{{task.name}}</p>
             </div>
+            <!-- Input to edit  -->
             <div class="edit-name" v-if="editTaskName == task.id">
               <b-input v-model="updateName" v-bind:id="task.id"></b-input>
               <b-button @click="updateTaskName" v-bind:id="task.id"><span v-bind:id="task.id"><i class="fas fa-arrow-alt-circle-right" v-bind:id="task.id"></i></span></b-button>
             </div>
           </div>
+          <!-- Icons for edit or delete  -->
           <div class="right-side-task">
             <i class="fas fa-pencil-alt" v-bind:id="task.id" @click="editTaskName = editTaskName == task.id? 0: task.id; createNewTask = false; createNewItem = false; editItemName = 0"></i>
             <i class="fas fa-trash-alt" v-bind:id="task.id" @click="isDeleteModalActive = true; taskDelete = task.id; editItemName = 0; editTaskName = 0; createNewItem = false; createNewTask = false" v-bind:class="{taskName: editTaskName == task.id}"></i>
           </div>
         </div>
+        <!-- Verifying delete modal  -->
         <b-modal v-model="isDeleteModalActive" :width="640" scroll="keep" id="delete-modal">
             <div class="card" id="delete-card">
                 <div class="card-content">
@@ -35,6 +40,7 @@
             </div>
         </b-modal>
       </div>
+      <!-- Creating new task input field  -->
       <div class="create-new-task">
         <div v-if="!createNewTask" @click="createNewTask = !createNewTask; editTaskName = 0; editItemName = 0; createNewItem = false"><i class="fas fa-plus"></i><span class="add-task">Add Task</span></div>
       </div>
@@ -46,6 +52,7 @@
         </div>
       </div> 
     </div>
+    <!-- Modal for the task description, items, and due date -->
     <b-modal v-model="isCardModalActive" can-cancel :width="640">
       <div class="card" id="card">
         <div class="card-content">
@@ -55,10 +62,13 @@
               <h2>Due: {{this.date}}</h2>
             </div>
           </div>
+          <!-- Tab for the items section that lists the items  -->
           <b-tabs v-model="activeTab" expanded>
             <b-tab-item label="Items">
               <div class="items-container">
+                <!-- Populating the container with the list of items for one task  -->
                 <div class="items-list" v-for="item in items" v-bind:key="item.id" v-bind:id="item.id">
+                  <!-- Checkbox for whether or not items are completed  -->
                   <div class="left-side-task">
                     <div class="radio-button" v-bind:id="item.id">
                         <div class="field" v-bind:id="item.id" v-bind:checked="item.completed">
@@ -68,16 +78,19 @@
                     <div class="task-name" v-bind:id="item.id" v-bind:class="{taskName: editItemName == item.id}"> 
                       <p v-bind:id="item.id">{{item.name}}</p>
                     </div>
+                    <!-- Input field to edit item name  -->
                     <div class="edit-item" v-if="editItemName == item.id">
                         <b-input v-model="updateItem" v-bind:id="item.id"></b-input>
                         <b-button v-bind:id="item.id"><span v-bind:id="item.id" @click="updateItemName"><i class="fas fa-arrow-alt-circle-right" v-bind:id="item.id"></i></span></b-button>
                       </div>
                   </div>
+                  <!-- Icons for the edit and delete functionality  -->
                   <div class="right-side-task">
                     <i class="fas fa-pencil-alt" v-bind:id="item.id" @click="editItemName = editItemName == item.id ? 0: item.id; editTaskName = 0; createNewTask = false; createNewItem = false"></i>
                     <i class="fas fa-trash-alt" v-bind:id="item.id" @click="isDeleteItemModalActive = true; itemDelete = item.id; editTaskName = 0; createNewItem = false; createNewTask = false; editItemName = 0" v-bind:class="{taskName: editItemName == item.id}"></i>
                   </div>
                 </div>
+                <!-- Delete modal for the items  -->
                 <b-modal v-model="isDeleteItemModalActive" :width="640" scroll="keep" id="delete-item-modal">
                     <div class="card" id="delete-item">
                         <div class="card-content">
@@ -90,6 +103,7 @@
                     </div>
                 </b-modal>
               </div>
+              <!-- Input field to create the item  -->
               <div class="create-new-item">
                 <div v-if="!createNewItem" @click="createNewItem = !createNewItem; createNewTask = false; editItemName = 0; editTaskName = 0"><i class="fas fa-plus"></i><span class="add-task">Add Item</span></div>
               </div>
@@ -101,10 +115,12 @@
                 </div>
               </div> 
             </b-tab-item>
+            <!-- Description section of the modal that describes the item  -->
             <b-tab-item label="Description">
               <div class="description">
                 {{this.description}}
               </div>
+              <!-- Text area where you can edit the description of the task  -->
                 <b-field>
                     <b-input type="textarea"
                         v-model="editDescription"
@@ -113,6 +129,7 @@
                 </b-field>
                 <b-button class="create-description" @click="updateTaskDescription">Submit</b-button>
             </b-tab-item>
+            <!-- Due Date section of the modal where one can edit due date -->
             <b-tab-item label="Due Date">
               <div class="due-date">
                 <input type="date" id="dueDate" name="dueDate" v-model="dueDate" placeholder="yyyy-mm-dd">
@@ -166,13 +183,15 @@ export default {
       itemDelete: 0
     }
   },
+  // Make sure tasks are populated when page is loaded in 
   created: function(){
     this.getTasks()
   },
   methods: {
+    // Method to check whether or not a TASK is complete
     checkComplete: function(event){
       this.completedTaskId = event.target.id
-      this.taskCompleted =event.target.parentElement.getAttribute('checked')
+      this.taskCompleted = event.target.parentElement.getAttribute('checked')
       if (this.taskCompleted) {
         this.taskCompleted = false
       } else {
@@ -195,6 +214,7 @@ export default {
         this.getTasks()
       })
     },
+    // Method to check whether or not a ITEM is complete
     itemComplete: function(event){
       this.completedItemId = event.target.id
       this.itemCompleted = event.target.parentElement.getAttribute('checked')
@@ -221,6 +241,7 @@ export default {
         this.getTaskItems(this.taskId)
       })
     },
+    // Creating a new TASK
     create: function(){
       const {token, URL} = this.$route.query
       const new_task = {name: this.newTask}
@@ -239,6 +260,7 @@ export default {
         this.getTasks()
       })
     },
+    // Creating a new ITEM
     createItem: function(){
       const {token, URL} = this.$route.query
       const new_task = {name: this.newItem, task: this.taskId}
@@ -257,140 +279,145 @@ export default {
         this.getTaskItems(this.taskId)
       })
     },
+    // Grabbing all TASKS
     getTasks: function(){
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/`, {
-      method: "get",
-      headers: {
-        authorization: `JWT ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.count == 0) {
-        this.noTasks = true
-        this.tasks = []
-      } else {
-        this.tasks = data.results
-        this.noTasks = false
-      }
-    })
+        method: "get",
+        headers: {
+          authorization: `JWT ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.count == 0) {
+          this.noTasks = true
+          this.tasks = []
+        } else {
+          this.tasks = data.results
+          this.noTasks = false
+        }
+      })
     },
+    // Grabbing one TASK
     getOneTask: function(event){
       this.isCardModalActive = true
-      // if(this.taskId == 0){
-        if(event){
-          this.taskId = event.target.id
-        }
-      // } 
+      if(event){
+        this.taskId = event.target.id
+      }
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/`, {
-      method: "get",
-      headers: {
-        authorization: `JWT ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      this.name = data.name
-      this.description = data.description
-      this.date = data.date
-      this.getTaskItems(this.taskId)
-    })
+        method: "get",
+        headers: {
+          authorization: `JWT ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.name = data.name
+        this.description = data.description
+        this.date = data.date
+        this.getTaskItems(this.taskId)
+      })
     },
+    // Getting all ITEMS
     getTaskItems: function(event){
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${event}/items`, {
-      method: "get",
-      headers: {
-        authorization: `JWT ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      this.items = data.results
-    })
+        method: "get",
+        headers: {
+          authorization: `JWT ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.items = data.results
+      })
     },
+    // Updating DESCRIPTION for TASK
     updateTaskDescription: function(){
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `JWT ${token}`
-      },
-      body: JSON.stringify({
-        name: this.name,
-        description: this.editDescription
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `JWT ${token}`
+        },
+        body: JSON.stringify({
+          name: this.name,
+          description: this.editDescription
+        })
       })
-    })
-    .then(response => response.json())
-    .then(() => {
-      this.getOneTask()
-      this.editDescription = ""
-    })
+      .then(response => response.json())
+      .then(() => {
+        this.getOneTask()
+        this.editDescription = ""
+      })
     },
+    // Updating DATE for TASK
     updateTaskDate: function(){
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `JWT ${token}`
-      },
-      body: JSON.stringify({
-        name: this.name,
-        date: this.dueDate
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `JWT ${token}`
+        },
+        body: JSON.stringify({
+          name: this.name,
+          date: this.dueDate
+        })
       })
-    })
-    .then(response => response.json())
-    .then(() => {
-      this.getOneTask()
-    })
+      .then(response => response.json())
+      .then(() => {
+        this.getOneTask()
+      })
     },
+    // Updating NAME for TASK
     updateTaskName: function(event){
       this.taskId2 = event.target.id
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId2}/`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `JWT ${token}`
-      },
-      body: JSON.stringify({
-        name: this.updateName
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `JWT ${token}`
+        },
+        body: JSON.stringify({
+          name: this.updateName
+        })
       })
-    })
-    .then(response => response.json())
-    .then(() => {
-      this.getTasks()
-      this.updateName = ""
-      this.editTaskName = 0
-    })
+      .then(response => response.json())
+      .then(() => {
+        this.getTasks()
+        this.updateName = ""
+        this.editTaskName = 0
+      })
     },
+    // Updating NAME of ITEM
     updateItemName: function(event){
       this.itemId2 = event.target.id
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/items/${this.itemId2}`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `JWT ${token}`
-      },
-      body: JSON.stringify({
-        name: this.updateItem,
-        task: this.taskId
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `JWT ${token}`
+        },
+        body: JSON.stringify({
+          name: this.updateItem,
+          task: this.taskId
+        })
       })
-    })
-    .then(response => response.json())
-    .then(() => {
-      this.getTaskItems(this.taskId)
-      this.editItemName = 0
-      this.updateItem = ""
-    })
+      .then(response => response.json())
+      .then(() => {
+        this.getTaskItems(this.taskId)
+        this.editItemName = 0
+        this.updateItem = ""
+      })
     },
+    // Delete one TASK
     deleteTask: function(){
-      // this.taskId2 = event.target.id
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskDelete}/`, {
         method: "delete",
@@ -404,8 +431,8 @@ export default {
         this.isDeleteModalActive = false
       })
     },
+    // Deleting one ITEM
     deleteItem: function(){
-      // this.itemId2 = event.target.id
       const {token, URL} = this.$route.query
       fetch(`${URL}/todo/tasks/${this.taskId}/items/${this.itemDelete}`, {
         method: "delete",
