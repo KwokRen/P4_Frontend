@@ -2,7 +2,7 @@
   <div class="header">
     <b-navbar>
       <template slot="brand" v-if="!loggedIn">
-        <router-link :to="{ name: 'Login', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL" class="logo"></router-link>
+        <router-link :to="{ name: 'Home', query: { URL: this.URL }}" v-if="!loggedIn" v-bind:URL="URL" class="logo"></router-link>
       </template>
       <template slot="end">
         <b-navbar-item tag="div">
@@ -44,6 +44,7 @@ export default {
 
 .navbar-brand, .navbar-tabs {
   background: purple;
+  align-items: center !important;
 }
 
 .navbar-burger {

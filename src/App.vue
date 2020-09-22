@@ -75,6 +75,10 @@ export default {
 
 <style>
 
+* {
+  scroll-behavior: smooth;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
 
 #app {
@@ -101,6 +105,10 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+button {
+  font-family: 'Roboto', sans-serif !important;
 }
 
 .buttons > a {
